@@ -91,6 +91,6 @@ class Game:
            if days_survived == difficulty["days_left"]:
                break
            else:
-               daily_mult_data += settings.get("daily_growth")
+               daily_mult_data += settings.get(difficulty["daily_growth"])
            pass
 
