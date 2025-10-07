@@ -1,3 +1,7 @@
+import json
+from constants import *
+from player import Player
+
 class Game:
  
     def __init__(self, player):
@@ -57,9 +61,22 @@ class Game:
         self.day = 1
         self.is_game_over = False
         
-    def difficulty_manager(day, difficulty):
-       
         
-        else:
-            print("Unknown difficulty level. Default settings applied.")
-            
+    def difficulty_manager(difficulty, days_survived):
+       difficulty = open('difficulty_levels.json', 'r')
+       difficulty_data = json.load(difficulty)
+       difficulty.close()
+       
+       days_survived = Player.self.days_survived
+
+       if difficulty_data.get(difficulty):
+           settings = difficulty_data[difficulty]
+           Player.self.hunger += settings.get("hunger", 0)
+           Player.self.thirst += settings.get("thirst", 0)
+           Player.self.energy += settings.get("energy", 0)
+           
+           Player.self.hunger = min(100, max(0, Player.self.hunger))
+           Player.self.thirst = min(100, max(0, Player.self.thirst))
+           Player.self.energy = min(0, max(100, Player.self.energy))
+       else:
+           print("Unknown difficulty level. Default settings applied.")
