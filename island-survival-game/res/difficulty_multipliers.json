@@ -2,31 +2,37 @@
     "Baby": {
         "base_days": 31,
         "daily_mult": 0.5,
-        "growth_rate": 0.01
+        "growth_rate": 0.01,
+        "days_left": 7
     },
     "Easy": {
         "base_days": 30,
         "daily_mult": 0.5,
-        "growth_rate": 0.02
+        "growth_rate": 0.02,
+        "days_left": 31
     },
     "Normal": {
         "base_days": 30,
         "daily_mult": 0.5,
-        "growth_rate": 0.03
+        "growth_rate": 0.03,
+        "days_left": 30
     },
     "Difficult": {
         "base_days": 28,
         "daily_mult": 0.5,
-        "growth_rate": 0.04
+        "growth_rate": 0.04,
+        "days_left": 28
     },
     "Hardcore": {
         "base_days": 20,
         "daily_mult": 0.5,
-        "growth_rate": 0.07
+        "growth_rate": 0.07,
+        "days_left": 20
     },
     "Nightmare": {
         "base_days": 15,
         "daily_mult": 0.5,
-        "growth_rate": 0.1
+        "growth_rate": 0.1,
+        "days_left": 15
     }
 }

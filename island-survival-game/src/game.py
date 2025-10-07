@@ -80,3 +80,11 @@ class Game:
            Player.self.energy = min(0, max(100, Player.self.energy))
        else:
            print("Unknown difficulty level. Default settings applied.")
+           settings = difficulty_data["Normal"]
+           Player.self.hunger += settings.get("hunger", 0)
+           Player.self.thirst += settings.get("thirst", 0)
+           Player.self.energy += settings.get("energy", 0)
+
+       for days_survived in range(days_left):
+            pass
+
