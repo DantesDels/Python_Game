@@ -32,7 +32,7 @@ MAX_DAYS_BABY = 7
 MAX_DAYS_EASY = 31
 
 # Game settings - Normal mode
-MAX_DAYS = 30
+MAX_DAYS_NORMAL = 30
 
 # Game settings - Difficult mode
 MAX_DAYS_DIFFICULT = 28

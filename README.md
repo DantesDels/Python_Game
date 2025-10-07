@@ -80,6 +80,12 @@ Le joueur peut charger une sauvegarde en sélectionnant l'option de chargement d
 python3 game.py file_name.json
 ```
 
+# Gestion de la Difficulté
+- Plus les jours passent, plus la difficulté s'élève.
+- Difficulté gérées par des multiplicateurs
+- Facilement réglable
+
+
 # BONUS
 - Ajouter des niveaux de difficulté (facile, moyen, difficile) qui affectent la vitesse à laquelle les jauges diminuent.
 - Ajouter des événements aléatoires plus variés et complexes.

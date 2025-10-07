@@ -1,5 +1,6 @@
 {
   "player_name": "Survivant",
+  "difficulty": "Baby",
   "day": 5,
   "hunger": 30,
   "thirst": 40,

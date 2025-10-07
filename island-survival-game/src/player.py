@@ -8,10 +8,10 @@ class Player:
 class Player:
     def __init__(self, name):
         self.name = name
-        # start with moderate values
-        self.hunger = 20  # 0 = full, 100 = starving
-        self.thirst = 20  # 0 = hydrated, 100 = dehydrated
-        self.energy = 50  # 0 = exhausted, 100 = energized
+        # starting values
+        self.hunger = 20  
+        self.thirst = 20  
+        self.energy = 50  
         self.days_survived = 0
 
     def eat(self, amount):
@@ -41,18 +41,18 @@ class Player:
         roll = random.randint(1, 100)
         if roll <= 10:
             # find food
-            print("Vous avez trouvé des fruits ! Faim réduite.")
+            print("You found some fruits! Hunger reduced.")
             self.hunger = max(0, self.hunger - 30)
         elif roll <= 20:
             # find water
-            print("Vous avez trouvé de l'eau potable ! Soif réduite.")
+            print("You found drinking water! Thirst reduced.")
             self.thirst = max(0, self.thirst - 30)
         elif roll <= 40:
             # encounter - lose energy
-            print("Rencontre dangereuse — vous vous êtes blessé(e). Energie réduite.")
+            print("Dangerous encounter — you got hurt. Energy reduced.")
             self.energy = max(0, self.energy - 30)
         else:
-            print("Exploration calme — rien de notable.")
+            print("Calm exploration — nothing notable.")
 
     def end_day(self):
         self.days_survived += 1
@@ -65,4 +65,4 @@ class Player:
         return self.hunger < 100 and self.thirst < 100 and self.energy > 0
 
     def __str__(self):
-        return f"{self.name} — Faim: {self.hunger}, Soif: {self.thirst}, Energie: {self.energy}, Jours: {self.days_survived}"
+        return f"{self.name} — Hunger: {self.hunger}, Thirst: {self.thirst}, Energy: {self.energy}, Days: {self.days_survived}"
