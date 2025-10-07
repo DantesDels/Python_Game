@@ -57,8 +57,9 @@ class Game:
         self.day = 1
         self.is_game_over = False
         
-    def difficulty_settings(self, level):
-       pass
-   
+    def difficulty_manager(day, difficulty):
+       
+        
         else:
             print("Unknown difficulty level. Default settings applied.")
+            

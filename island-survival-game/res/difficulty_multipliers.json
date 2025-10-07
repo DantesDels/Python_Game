@@ -1,0 +1,32 @@
+{    
+    "Baby": {
+        "base_days": 31,
+        "base_mult": 0.5,
+        "growth_rate": 0.01
+    },
+    "Easy": {
+        "base_days": 30,
+        "base_mult": 0.5,
+        "growth_rate": 0.02
+    },
+    "Normal": {
+        "base_days": 30,
+        "base_mult": 0.5,
+        "growth_rate": 0.03
+    },
+    "Difficult": {
+        "base_days": 28,
+        "base_mult": 0.5,
+        "growth_rate": 0.04
+    },
+    "Hardcore": {
+        "base_days": 20,
+        "base_mult": 0.5,
+        "growth_rate": 0.07
+    },
+    "Nightmare": {
+        "base_days": 15,
+        "base_mult": 0.5,
+        "growth_rate": 0.1
+    }
+}
