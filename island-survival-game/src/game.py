@@ -60,31 +60,37 @@ class Game:
             self.player.reset()
         self.day = 1
         self.is_game_over = False
-        
-        
+
+
     def difficulty_manager(difficulty, days_survived):
        difficulty = open('difficulty_levels.json', 'r')
        difficulty_data = json.load(difficulty)
        difficulty.close()
-       
+
        days_survived = Player.self.days_survived
+       
+       Player.self.hunger = min(100, max(0, Player.self.hunger))
+       Player.self.thirst = min(100, max(0, Player.self.thirst))
+       Player.self.energy = min(0, max(100, Player.self.energy))
 
        if difficulty_data.get(difficulty):
            settings = difficulty_data[difficulty]
-           Player.self.hunger += settings.get("hunger", 0)
-           Player.self.thirst += settings.get("thirst", 0)
-           Player.self.energy += settings.get("energy", 0)
+           Player.self.hunger += settings.get("hunger")
+           Player.self.thirst += settings.get("thirst")
+           Player.self.energy += settings.get("energy")
            
-           Player.self.hunger = min(100, max(0, Player.self.hunger))
-           Player.self.thirst = min(100, max(0, Player.self.thirst))
-           Player.self.energy = min(0, max(100, Player.self.energy))
        else:
            print("Unknown difficulty level. Default settings applied.")
            settings = difficulty_data["Normal"]
-           Player.self.hunger += settings.get("hunger", 0)
-           Player.self.thirst += settings.get("thirst", 0)
-           Player.self.energy += settings.get("energy", 0)
+           Player.self.hunger += settings.get("hunger")
+           Player.self.thirst += settings.get("thirst")
+           Player.self.energy += settings.get("energy")
 
-       for days_survived in range(days_left):
-            pass
+       for days_survived in range(difficulty["days_left"]):
+           days_survived += 1
+           if days_survived == difficulty["days_left"]:
+               break
+           else:
+               daily_mult_data += settings.get("daily_growth")
+           pass
 
