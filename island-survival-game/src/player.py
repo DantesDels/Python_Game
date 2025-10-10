@@ -1,17 +1,10 @@
 class Player:
     def __init__(self, name):
         self.name = name
-        self.hunger = 0  # 0 = full, 100 = starving
-        self.thirst = 0  # 0 = hydrated, 100 = dehydrated
-        self.energy = 0  # 0 = exhausted, 100 = energized
-        self.days_survived = 0
-class Player:
-    def __init__(self, name):
-        self.name = name
         # starting values
-        self.hunger = 20  
-        self.thirst = 20  
-        self.energy = 50  
+        self.hunger = 20  # 0 = full, 100 = starving
+        self.thirst = 20  # 0 = hydrated, 100 = dehydrated
+        self.energy = 50  # 0 = exhausted, 100 = energized
         self.days_survived = 0
 
     def eat(self, amount):

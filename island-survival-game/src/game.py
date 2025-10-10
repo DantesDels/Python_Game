@@ -63,15 +63,11 @@ class Game:
 
 
     def difficulty_manager(difficulty, days_survived):
-       difficulty = open('difficulty_levels.json', 'r')
+       difficulty = open('difficulty_multipliers.json', 'r')
        difficulty_data = json.load(difficulty)
        difficulty.close()
 
        days_survived = Player.self.days_survived
-       
-       Player.self.hunger = min(100, max(0, Player.self.hunger))
-       Player.self.thirst = min(100, max(0, Player.self.thirst))
-       Player.self.energy = min(0, max(100, Player.self.energy))
 
        if difficulty_data.get(difficulty):
            settings = difficulty_data[difficulty]
