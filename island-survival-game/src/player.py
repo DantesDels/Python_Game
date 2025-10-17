@@ -2,6 +2,7 @@ class Player:
     def __init__(self, name):
         self.name = name
         # starting values
+        self.daily_mult = 0.5
         self.hunger = 20  # 0 = full, 100 = starving
         self.thirst = 20  # 0 = hydrated, 100 = dehydrated
         self.energy = 50  # 0 = exhausted, 100 = energized
@@ -47,12 +48,13 @@ class Player:
         else:
             print("Calm exploration — nothing notable.")
 
-    def end_day(self):
+    def end_day(self, growth_rate):
         self.days_survived += 1
+        self.daily_mult += growth_rate
         # natural deterioration per day
-        self.hunger = min(100, self.hunger + 8)
-        self.thirst = min(100, self.thirst + 10)
-        self.energy = max(0, self.energy - 20)
+        self.hunger = int(min(100, self.hunger + self.daily_mult))
+        self.thirst = int(min(100, self.thirst + self.daily_mult))
+        self.energy = int(max(0, self.energy - self.daily_mult))
 
     def is_alive(self):
         return self.hunger < 100 and self.thirst < 100 and self.energy > 0

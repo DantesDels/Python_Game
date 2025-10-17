@@ -1,23 +1,31 @@
-from constants import *
 from utils import format_gauge
+from difficulty_manager import difficulty_manager
+from player import Player
 
 class Game:
  
     def __init__(self, player):
-        self.player = player
+        self.player : Player = player
         self.day = 1
         self.is_game_over = False
+        
     def start_game(self):
         print("Bienvenue sur l'île — survivez le plus longtemps possible !\n")
-        while not self.is_game_over:
+        difficulty_settings = difficulty_manager("Baby")
+        self.player.daily_mult = difficulty_settings["daily_mult"]
+        
+        while not self.is_game_over and self.day <= difficulty_settings["days_left"]:
             self.display_status()
             action = self.get_player_action()
-            self.process_action(action)
+            self.process_action(action, difficulty_settings)
             # end of day automatic updates
-            self.player.end_day()
+            self.player.end_day(difficulty_settings["growth_rate"])
             self.check_game_over()
             self.day += 1
-        print(f"Partie terminée après {self.player.days_survived} jours.\nEtat final : {self.player}")
+        print(f"Partie terminée après {self.player.days_survived} jours.\n")
+        
+        if not self.is_game_over:
+            print("Félicitations ! Vous avez survécu jusqu'à la fin du défi !")
               
     def display_status(self):
         print(f"Jour {self.day}")
@@ -37,7 +45,7 @@ class Game:
         }
         return mapping.get(action, action)
     
-    def process_action(self, action):
+    def process_action(self, action, difficulty_settings):
         if action == "fish":
             self.player.fish()
         elif action == "search_water":
