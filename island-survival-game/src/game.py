@@ -2,6 +2,7 @@ import os
 from utils import format_gauge
 from difficulty_manager import difficulty_manager
 from player import Player
+from save_manager import save_manager
 
 class Game:
  

@@ -1,8 +1,13 @@
 {
-  "player_name": "Survivant",
-  "difficulty": "Baby",
-  "day": 5,
-  "hunger": 30,
-  "thirst": 40,
-  "energy": 50
+  "player": {
+    "name": "string",
+    "hunger": "number",
+    "thirst": "number",
+    "energy": "number",
+    "days_survived": "number"
+  },
+  "game": {
+    "day": "number",
+    "difficulty": "string"
+  }
 }
