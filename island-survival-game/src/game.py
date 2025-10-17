@@ -28,7 +28,7 @@ class Game:
         while not self.is_game_over and self.day <= difficulty_settings["days_left"]:
             self.display_status()
             action = self.get_player_action()
-            self.process_action(action, difficulty_settings)
+            self.process_action(action)
             # end of day automatic updates
             self.player.end_day(difficulty_settings["growth_rate"])
             self.check_game_over()
@@ -56,7 +56,7 @@ class Game:
         }
         return map.get(action, action)
     
-    def process_action(self, action, difficulty_settings):
+    def process_action(self, action):
         if action == "fish":
             self.player.fish()
         elif action == "search_water":

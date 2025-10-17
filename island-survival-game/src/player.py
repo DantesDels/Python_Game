@@ -35,16 +35,16 @@ class Player:
         roll = random.randint(1, 100)
         if roll <= 10:
             # find food
-            print("You found some fruits! Hunger reduced.")
+            print("Tu as trouvé de la nourriture ! La faim diminue.")
             self.hunger = max(0, self.hunger - 30)
         elif roll <= 20:
             # find water
-            print("You found drinking water! Thirst reduced.")
+            print("Tu as trouvé de l'eau potable ! La soif diminue.")
             self.thirst = max(0, self.thirst - 30)
         elif roll <= 40:
             # encounter - lose energy
-            print("Dangerous encounter — you got hurt. Energy reduced.")
-            self.energy = max(0, self.energy - 30)
+            print("Rencontre dangereuse — vous avez été blessé. Énergie réduite.")
+            self.energy = max(0, self.energy + 30)
         else:
             print("Calm exploration — nothing notable.")
 
