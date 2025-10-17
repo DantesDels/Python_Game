@@ -39,20 +39,20 @@ class Game:
             print("Félicitations ! Vous avez survécu jusqu'à la fin du défi !")
               
     def display_status(self):
-        print(f"Jour {self.day}")
+        print(f"{self.player.name} | Jour {self.day}")
         print("   Faim : ", format_gauge(self.player.hunger, 100))
         print("   Soif : ", format_gauge(self.player.thirst, 100))
         print("Energie : ", format_gauge(self.player.energy, 100))
 
     def get_player_action(self):
-        action = input("Choisissez une action (pêcher, eau, dormir, explorer) : ")
+        action = input("Choisissez une action :\n 1 - Pêcher\n 2 - Chercher de l'Eau\n 3 - Dormir\n 4 - Explorer\n Votre choix : ")
         # map french/english inputs
         action = action.strip().lower()
         map = {
-            'pêcher': 'fish', 'pecher': 'fish', 'fish': 'fish',
-            'eau': 'search_water', 'chercher': 'search_water', 'search_water': 'search_water',
-            'dormir': 'sleep', 'sleep': 'sleep',
-            'explorer': 'explore', 'explore': 'explore'
+            '1': 'fish', 'pêcher': 'fish', 'pecher': 'fish', 'fish': 'fish',
+            '2': 'search_water', 'eau': 'search_water', 'chercher': 'search_water', 'search_water': 'search_water',
+            '3': 'sleep', 'dormir': 'sleep', 'sleep': 'sleep',
+            '4': 'explore', 'explorer': 'explore', 'explore': 'explore'
         }
         return map.get(action, action)
     
