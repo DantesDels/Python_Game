@@ -1,7 +1,8 @@
 import json
 
-def save_game(player, game):
+def save_game(timestamp, player, game):
     saved_data = {
+        'save_name': timestamp,
         'player': {
             'name': player.name,
             'hunger': player.hunger,
