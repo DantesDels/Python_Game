@@ -10,8 +10,19 @@ class Game:
         self.is_game_over = False
         
     def start_game(self):
+        self.player.name = input("Entrez le nom de votre personnage : ")
+        selected_difficulty = input("Selectionnez une difficulté : \n1 - Baby \n2 - Easy \n3 - Medium \n4 - Hard \n5 - Nightmare \nVotre choix : ")
+        selected_difficulty = selected_difficulty.strip().lower()
+        difficulty_map = {
+            '1': 'Baby', 'baby': 'Baby', 'Baby': 'Baby', 'BABY': 'Baby',
+            '2': 'Easy', 'easy': 'Easy', 'Easy': 'Easy', 'EASY': 'Easy',
+            '3': 'Medium', 'medium': 'Medium', 'Medium': 'Medium', 'MEDIUM': 'Medium',
+            '4': 'Hard', 'hard': 'Hard', 'Hard': 'Hard', 'HARD': 'Hard',
+            '5': 'Nightmare', 'nightmare': 'Nightmare', 'Nightmare': 'Nightmare', 'NIGHTMARE': 'Nightmare'
+        }
+        selected_difficulty = difficulty_map.get(selected_difficulty, 'Baby')
         print("Bienvenue sur l'île — survivez le plus longtemps possible !\n")
-        difficulty_settings = difficulty_manager("Baby")
+        difficulty_settings = difficulty_manager(selected_difficulty)
         self.player.daily_mult = difficulty_settings["daily_mult"]
         
         while not self.is_game_over and self.day <= difficulty_settings["days_left"]:
@@ -37,13 +48,13 @@ class Game:
         action = input("Choisissez une action (pêcher, eau, dormir, explorer) : ")
         # map french/english inputs
         action = action.strip().lower()
-        mapping = {
+        map = {
             'pêcher': 'fish', 'pecher': 'fish', 'fish': 'fish',
             'eau': 'search_water', 'chercher': 'search_water', 'search_water': 'search_water',
             'dormir': 'sleep', 'sleep': 'sleep',
             'explorer': 'explore', 'explore': 'explore'
         }
-        return mapping.get(action, action)
+        return map.get(action, action)
     
     def process_action(self, action, difficulty_settings):
         if action == "fish":
