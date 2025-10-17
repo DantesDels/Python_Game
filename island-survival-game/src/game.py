@@ -72,6 +72,7 @@ class Game:
         if not self.player.is_alive():
             self.is_game_over = True
             print("Game Over! Vous n'avez pas survécu.")
+            self.display_status()
 
     def reset_game(self):
         if hasattr(self.player, 'reset'):

@@ -50,7 +50,7 @@ class Player:
 
     def end_day(self, growth_rate):
         self.days_survived += 1
-        self.daily_mult += growth_rate
+        self.daily_mult *= (1 + growth_rate)
         # natural deterioration per day
         self.hunger = int(min(100, self.hunger + self.daily_mult))
         self.thirst = int(min(100, self.thirst + self.daily_mult))
