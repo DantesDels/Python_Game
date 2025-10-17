@@ -57,9 +57,9 @@ class Game:
 
     def clear_screen(self):
         if os.name == 'nt':
-            os.system('cls')
+            os.system('cls') # Windows
         else:
-            os.system('clear')
+            os.system('clear') # Unix/Linux/MacOS
 
     def get_player_action(self):
         action = input("Choisissez une action :\n 1 - Pêcher\n 2 - Chercher de l'Eau\n 3 - Dormir\n 4 - Explorer\n\n  Votre choix : ")
@@ -93,6 +93,10 @@ class Game:
             print(f"Vous avez survécu pendant {self.player.days_survived} jours.\n")
             self.reset_game()
          
+    def clear_game(self):
+        self.player.reset()
+        self.day = 1
+        self.is_game_over = False     
 
     def reset_game(self):
         print("Voulez-vous recommencer une partie ?\n 1 - Oui\n 2 - Non\n")
@@ -104,6 +108,7 @@ class Game:
         }
         choice = map.get(choice, choice)
         if choice == "1":
+            self.clear_game()
             self.start_game()
         elif choice == "2":
             print("Merci d'avoir joué !")

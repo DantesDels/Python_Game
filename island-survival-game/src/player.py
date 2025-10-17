@@ -58,6 +58,13 @@ class Player:
 
     def is_alive(self):
         return self.hunger < 100 and self.thirst < 100 and self.energy > 0
+    
+    def reset(self):
+        self.hunger = 20
+        self.thirst = 20
+        self.energy = 50
+        self.days_survived = 0
+        self.daily_mult = 0.5
 
     def __str__(self):
         return f"{self.name} — Hunger: {self.hunger}, Thirst: {self.thirst}, Energy: {self.energy}, Days: {self.days_survived}"
