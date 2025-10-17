@@ -1,6 +1,7 @@
 import json
 from constants import *
 from player import Player
+from utils import format_gauge
 
 class Game:
  
@@ -22,9 +23,9 @@ class Game:
               
     def display_status(self):
         print(f"Jour {self.day}")
-        print(f"Faim : {self.player.hunger}")
-        print(f"Soif : {self.player.thirst}")
-        print(f"Energie : {self.player.energy}\n")
+        print("   Faim : ", format_gauge(self.player.hunger, 100))
+        print("   Soif : ", format_gauge(self.player.thirst, 100))
+        print("Energie : ", format_gauge(self.player.energy, 100))
 
     def get_player_action(self):
         action = input("Choisissez une action (pêcher, eau, dormir, explorer) : ")
