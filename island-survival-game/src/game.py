@@ -2,7 +2,7 @@ import os
 from utils import format_gauge
 from difficulty_manager import difficulty_manager
 from player import Player
-from save_manager import to_save
+from save_manager import to_save , to_load, save_game
 
 class Game:
  
@@ -58,7 +58,7 @@ class Game:
         print("Energie : ", format_gauge(self.player.energy, 100), "\n")
 
     def get_player_action(self):
-        action = input("Choisissez une action :\n 1 - Pêcher\n 2 - Chercher de l'Eau\n 3 - Dormir\n 4 - Explorer\n 5 - Sauvegarder\n\n  Votre choix : ")
+        action = input("Choisissez une action :\n 1 - Pêcher\n 2 - Chercher de l'Eau\n 3 - Dormir\n 4 - Explorer\n 5 - Sauvegarder la Partie\n 6 - Charger une Partie\n\n  Votre choix : ")
         # map french/english inputs
         action = action.strip().lower()
         map = {
@@ -66,7 +66,8 @@ class Game:
             '2': 'search_water', 'eau': 'search_water', 'chercher': 'search_water', 'search_water': 'search_water',
             '3': 'sleep', 'dormir': 'sleep', 'sleep': 'sleep',
             '4': 'explore', 'explorer': 'explore', 'explore': 'explore',
-            '5': 'save', 'sauvegarder': 'save', 'save': 'save'
+            '5': 'save', 'sauvegarder': 'save', 'save': 'save',
+            '6': 'load', 'charger': 'load', 'load': 'load'
         }
         return map.get(action, action)
     
@@ -80,7 +81,9 @@ class Game:
         elif action == "explore":
             self.player.explore()
         elif action == "save":
-            self.to_save()
+            to_save(self)
+        elif action == "load":
+            to_load(self)
         else:
             print("Action invalide. Aucun effet pour ce tour.")
 
