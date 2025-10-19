@@ -29,6 +29,13 @@ class Game:
             '5': 'Hardcore', 'hardcore': 'Hardcore', 'Hardcore': 'Hardcore',
             '6': 'Nightmare', 'nightmare': 'Nightmare', 'Nightmare': 'Nightmare'
         }
+        
+        while selected_difficulty not in difficulty_map:
+            self.clear_screen()
+            print("Difficulté invalide. Réessayer !\n")
+            selected_difficulty = input("Selectionnez une difficulté :\n 1 - Baby\n 2 - Easy\n 3 - Medium\n 4 - Hard\n 5 - Hardcore\n 6 - Nightmare\n\n  Votre choix : ")
+            selected_difficulty = selected_difficulty.strip().lower()
+
         selected_difficulty = difficulty_map.get(selected_difficulty, 'Baby')
         self.selected_difficulty = selected_difficulty
         self.clear_screen()
@@ -86,6 +93,7 @@ class Game:
         elif action == "load":
             to_load(self)
         elif action == "exit":
+            self.clear_screen()
             print("\n Merci d'avoir joué !")
             exit()
         else:

@@ -46,6 +46,6 @@ def to_load(timestamp):
     with open(f'../saves/{timestamp}.json', 'r', encoding='utf-8') as save_file:
         loaded_data = json.load(save_file)
         
-        selected_save = int(input("Sélectionnez le numéro de la Partie à charger et appuyez sur Entrée..."))
+        selected_save = int(input("Sélectionnez le Numéro de la Partie à charger : "))
         print(f"Partie chargée : {timestamp}\n")
     return loaded_data
