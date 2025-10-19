@@ -6,11 +6,10 @@
     "hunger": "number",
     "thirst": "number",
     "energy": "number",
-      "days_survived": "number"
+    "days_survived": "number"
     },
 
   "game": {
-    "day": "number",
     "difficulty": "string"
   }
 }

@@ -2,7 +2,6 @@ import os
 from utils import format_gauge
 from difficulty_manager import difficulty_manager
 from player import Player
-from save_manager import save_manager
 
 class Game:
  
@@ -12,6 +11,7 @@ class Game:
         self.is_game_over = False
         
     def start_game(self):
+        self.full_screen()
         self.clear_screen()
         print("=== Jeu de Survie sur l'Île ===\n")
         self.player.name = input("Entrez le nom de votre personnage : ")
@@ -56,12 +56,6 @@ class Game:
         print("   Soif : ", format_gauge(self.player.thirst, 100))
         print("Energie : ", format_gauge(self.player.energy, 100), "\n")
 
-    def clear_screen(self):
-        if os.name == 'nt':
-            os.system('cls') # Windows
-        else:
-            os.system('clear') # Unix/Linux/MacOS
-
     def get_player_action(self):
         action = input("Choisissez une action :\n 1 - Pêcher\n 2 - Chercher de l'Eau\n 3 - Dormir\n 4 - Explorer\n\n  Votre choix : ")
         # map french/english inputs
@@ -94,10 +88,23 @@ class Game:
             print(f"Vous avez survécu pendant {self.player.days_survived} jours.\n")
             self.reset_game()
          
+    def clear_screen(self):
+        if os.name == 'nt':
+            os.system('cls') # Windows
+        else:
+            os.system('clear') # Unix/Linux/MacOS
+
+#    def full_screen(self):
+#        if os.name == 'nt':
+#            os.system('mode con: cols=300 lines=100')
+#        else:
+#            os.system('printf "\e[8;100;300t"')
+#        return self
+
     def clear_game(self):
         self.player.reset()
         self.day = 1
-        self.is_game_over = False     
+        self.is_game_over = False
 
     def reset_game(self):
         print("Voulez-vous recommencer une partie ?\n 1 - Oui\n 2 - Non\n")
