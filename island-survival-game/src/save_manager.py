@@ -13,8 +13,8 @@ def to_save(self):
     player_saves = player_saves.strip().lower()
       
     if player_saves in ['oui', 'o', 'yes', 'y']:
-        print("Partie sauvegardée.\n")
         save_game(timestamp, self.player, self)
+        print("Partie sauvegardée.\n")
     elif player_saves in ['non', 'n', 'no']:
         print("Sauvegarde annulée.\n")
         return
@@ -23,7 +23,7 @@ def to_save(self):
         return
     
     save_game(timestamp, self)
-    print(f"Partie sauvegardée sous le nom : {timestamp}\n")
+    print(f"Partie sauvegardée : {timestamp}\n")
 
 
 def save_game(timestamp, player, game):

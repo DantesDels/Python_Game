@@ -1,5 +1,4 @@
 import os
-import keyboard
 from utils import format_gauge
 from difficulty_manager import difficulty_manager
 from player import Player
@@ -37,15 +36,6 @@ class Game:
         print("Bienvenue sur l'île — survivez le plus longtemps possible !\n")
         difficulty_settings = difficulty_manager(selected_difficulty)
         self.player.daily_mult = difficulty_settings["daily_mult"]
-        
-        while True:
-            try: 
-                if keyboard.is_pressed('ctrl+s'):  # if key 'ctrl+s' is pressed 
-                    self.to_save()
-                    print('Game saving...')
-                    break
-            except:
-                break  
             
         while not self.is_game_over and self.day <= difficulty_settings["days_left"]:
             self.display_status()
@@ -68,14 +58,15 @@ class Game:
         print("Energie : ", format_gauge(self.player.energy, 100), "\n")
 
     def get_player_action(self):
-        action = input("Choisissez une action :\n 1 - Pêcher\n 2 - Chercher de l'Eau\n 3 - Dormir\n 4 - Explorer\n\n  Votre choix : ")
+        action = input("Choisissez une action :\n 1 - Pêcher\n 2 - Chercher de l'Eau\n 3 - Dormir\n 4 - Explorer\n 5 - Sauvegarder\n\n  Votre choix : ")
         # map french/english inputs
         action = action.strip().lower()
         map = {
             '1': 'fish', 'pêcher': 'fish', 'pecher': 'fish', 'fish': 'fish',
             '2': 'search_water', 'eau': 'search_water', 'chercher': 'search_water', 'search_water': 'search_water',
             '3': 'sleep', 'dormir': 'sleep', 'sleep': 'sleep',
-            '4': 'explore', 'explorer': 'explore', 'explore': 'explore'
+            '4': 'explore', 'explorer': 'explore', 'explore': 'explore',
+            '5': 'save', 'sauvegarder': 'save', 'save': 'save'
         }
         return map.get(action, action)
     
@@ -88,6 +79,8 @@ class Game:
             self.player.sleep()
         elif action == "explore":
             self.player.explore()
+        elif action == "save":
+            self.to_save()
         else:
             print("Action invalide. Aucun effet pour ce tour.")
 
