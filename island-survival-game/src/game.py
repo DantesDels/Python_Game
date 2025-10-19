@@ -12,7 +12,10 @@ class Game:
         self.is_game_over = False
         
     def start_game(self):
-    #   self.full_screen()
+        # while True:
+        #     if key.is_pressed('²'):
+        #         display_main_menu()
+        # self.full_screen()
         self.clear_screen()
         print("=== Jeu de Survie sur l'Île ===\n")
         self.player.name = input("Entrez le nom de votre personnage : ")
