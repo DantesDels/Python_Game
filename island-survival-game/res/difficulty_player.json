@@ -1,0 +1,32 @@
+{    
+    "Baby": {
+        "hunger": 20,
+        "thirst": 20,
+        "energy": 50
+    },
+    "Easy": {
+        "hunger": 22,
+        "thirst": 22,
+        "energy": 48
+    },
+    "Normal": {
+        "hunger": 24,
+        "thirst": 24,
+        "energy": 45
+    },
+    "Difficult": {
+        "hunger": 25,
+        "thirst": 25,
+        "energy": 40
+    },
+    "Hardcore": {
+        "hunger": 25,
+        "thirst": 25,
+        "energy": 35
+    },
+    "Nightmare": {
+        "hunger": 30,
+        "thirst": 30,
+        "energy": 30
+    }
+}
