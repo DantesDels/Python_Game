@@ -3,6 +3,8 @@ from utils import format_gauge
 from difficulty_manager import difficulty_manager
 from player import Player
 from save_manager import to_save , to_load, save_game
+from difficulty_manager import select_difficulty
+from player_actions import get_player_action, process_action
 
 class Game:
  
@@ -19,35 +21,17 @@ class Game:
         self.clear_screen()
 
         print(f"Bienvenue à toi {self.player.name} !\n")
-        selected_difficulty = input("Selectionnez une difficulté :\n 1 - Baby\n 2 - Easy\n 3 - Medium\n 4 - Hard\n 5 - Hardcore\n 6 - Nightmare\n\n  Votre choix : ")
-        selected_difficulty = selected_difficulty.strip().lower()
-        difficulty_map = {
-            '1': 'Baby', 'baby': 'Baby', 'Baby': 'Baby',
-            '2': 'Easy', 'easy': 'Easy', 'Easy': 'Easy',
-            '3': 'Medium', 'medium': 'Medium', 'Medium': 'Medium',
-            '4': 'Difficult', 'difficult': 'Difficult', 'Difficult': 'Difficult',
-            '5': 'Hardcore', 'hardcore': 'Hardcore', 'Hardcore': 'Hardcore',
-            '6': 'Nightmare', 'nightmare': 'Nightmare', 'Nightmare': 'Nightmare'
-        }
-        
-        while selected_difficulty not in difficulty_map:
-            self.clear_screen()
-            print("Difficulté invalide. Réessayer !\n")
-            selected_difficulty = input("Selectionnez une difficulté :\n 1 - Baby\n 2 - Easy\n 3 - Medium\n 4 - Hard\n 5 - Hardcore\n 6 - Nightmare\n\n  Votre choix : ")
-            selected_difficulty = selected_difficulty.strip().lower()
-
-        selected_difficulty = difficulty_map.get(selected_difficulty, 'Baby')
-        self.selected_difficulty = selected_difficulty
+        select_difficulty(self)
         self.clear_screen()
         
         print("Bienvenue sur l'île — survivez le plus longtemps possible !\n")
-        difficulty_settings = difficulty_manager(selected_difficulty)
+        difficulty_settings = difficulty_manager(self.selected_difficulty)
         self.player.daily_mult = difficulty_settings["daily_mult"]
             
         while not self.is_game_over and self.day <= difficulty_settings["days_left"]:
             self.display_status()
-            action = self.get_player_action()
-            self.process_action(action)
+            action = get_player_action()
+            process_action(self, action)
             # end of day automatic updates
             self.clear_screen()
             self.player.end_day(difficulty_settings["growth_rate"])
@@ -63,41 +47,6 @@ class Game:
         print("   Faim : ", format_gauge(self.player.hunger, 100))
         print("   Soif : ", format_gauge(self.player.thirst, 100))
         print("Energie : ", format_gauge(self.player.energy, 100), "\n")
-
-    def get_player_action(self):
-        action = input("Choisissez une action :\n 1 - Pêcher\n 2 - Chercher de l'Eau\n 3 - Dormir\n 4 - Explorer\n\n S - Sauvegarder la Partie\n C - Charger une Partie\n Q - Quitter\n\n  Votre choix : ")
-        # map french/english inputs
-        action = action.strip().lower()
-        map = {
-            '1': 'fish', 'pêcher': 'fish', 'pecher': 'fish', 'fish': 'fish',
-            '2': 'search_water', 'eau': 'search_water', 'chercher': 'search_water', 'search_water': 'search_water',
-            '3': 'sleep', 'dormir': 'sleep', 'sleep': 'sleep',
-            '4': 'explore', 'explorer': 'explore', 'explore': 'explore',
-            's': 'save', 'sauvegarder': 'save', 'save': 'save',
-            'c': 'load', 'charger': 'load', 'load': 'load',
-            'q': 'exit', 'quitter': 'exit', 'exit': 'exit'
-        }
-        return map.get(action, action)
-    
-    def process_action(self, action):
-        if action == "fish":
-            self.player.fish()
-        elif action == "search_water":
-            self.player.search_water()
-        elif action == "sleep":
-            self.player.sleep()
-        elif action == "explore":
-            self.player.explore()
-        elif action == "save":
-            to_save(self)
-        elif action == "load":
-            to_load(self)
-        elif action == "exit":
-            self.clear_screen()
-            print("\n Merci d'avoir joué !")
-            exit()
-        else:
-            print("Action invalide. Aucun effet pour ce tour.")
 
     def check_game_over(self):
         if not self.player.is_alive():
