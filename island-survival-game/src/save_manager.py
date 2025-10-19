@@ -3,7 +3,13 @@ import os
 import re
 from datetime import datetime
 from player import Player
-from difficulty_manager import difficulty_manager
+
+SAVES_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'saves'))
+TIMESTAMP_PATTERN = re.compile(r'^\d{8}_\d{6}\.json$')  # 20251019_142530.json
+
+def ensure_saves_dir():
+    if not os.path.exists(SAVES_DIR):
+        os.makedirs(SAVES_DIR, exist_ok=True)
 
 SAVES_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'saves'))
 TIMESTAMP_PATTERN = re.compile(r'^\d{8}_\d{6}\.json$')  # 20251019_142530.json
