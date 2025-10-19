@@ -1,12 +1,12 @@
 class Player:
-    def __init__(self, name):
+    def __init__(self, name, daily_mult=0.5, hunger=20, thirst=20, energy=50, days_survived=0):
         self.name = name
         # starting values
-        self.daily_mult = 0.5
-        self.hunger = 20  # 0 = full, 100 = starving
-        self.thirst = 20  # 0 = hydrated, 100 = dehydrated
-        self.energy = 50  # 0 = exhausted, 100 = energized
-        self.days_survived = 0
+        self.daily_mult = daily_mult
+        self.hunger = hunger # 0 = full, 100 = starving
+        self.thirst = thirst  # 0 = hydrated, 100 = dehydrated
+        self.energy = energy  # 0 = exhausted, 100 = energized
+        self.days_survived = days_survived
 
     def eat(self, amount):
         self.hunger = max(0, self.hunger - amount)
