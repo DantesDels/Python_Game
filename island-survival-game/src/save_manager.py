@@ -64,14 +64,14 @@ def to_load():
     
     saves = []
     for save_file in save_files:
-        with open(os.path.join(SAVES_DIR, save_file), 'r', encoding='utf-8') as f:
-            save_data = json.load(f)
+        with open(os.path.join(SAVES_DIR, save_file), 'r', encoding='utf-8') as file:
+            save_data = json.load(file)
             saves.append(save_data)
 
-    print("Liste des sauvegardes disponibles :\n")    
+    print("Liste des sauvegardes disponibles :\n")
     for i, (save_data) in enumerate(saves, start=1):
         player = save_data['player']
-        print(f"{i}. {save_data['save_name']} - {player['name']} (Jours survécus : {player['days_survived']})")
+        print(f"{i}. {save_data['save_name']} - {player['name']} | Jours {player['days_survived']} | Faim: {player['hunger']} / Soif: {player['thirst']} / Énergie: {player['energy']}")
         
     choice = input("\nEntrez le numéro de la sauvegarde à charger : ")
     if not choice.isdigit() or int(choice) < 1 or int(choice) > len(saves):
