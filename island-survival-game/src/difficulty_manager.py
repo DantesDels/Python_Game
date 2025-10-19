@@ -13,3 +13,4 @@ def difficulty_manager(difficulty_level, difficulty_player):
     player_difficulty_data = load_json_filename('difficulty_player.json')
     return player_difficulty_data.get(difficulty_player, player_difficulty_data.get("Baby"))
 
+# Python peut return des tuples.
