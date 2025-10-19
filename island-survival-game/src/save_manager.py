@@ -42,7 +42,14 @@ def to_save(self):
 
     save_game(self)
 
-def to_load(timestamp):
-    with open(f'../saves/{timestamp}.json', 'r', encoding='utf-8') as save_file:
+def to_load():
+    with open(f'../saves/{datetime}.json', 'r', encoding='utf-8') as save_file:
         loaded_data = json.load(save_file)
+        print(f"Liste des sauvegardes disponibles :\n")
+        for save in loaded_data:
+            print(f" - {save['save_name']} : {save['player']['name']} (Jours survécus : {save['player']['days_survived']})")
+        selected_save = input(f"\n\n Entrez le nom de la sauvegarde à charger : ")
+        for save in loaded_data:
+            if save['save_name'] == selected_save:
+                print(f"Sauvegarde chargée : {selected_save}\n")
     return loaded_data
