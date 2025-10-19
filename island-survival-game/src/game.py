@@ -1,7 +1,9 @@
 import os
+import keyboard
 from utils import format_gauge
 from difficulty_manager import difficulty_manager
 from player import Player
+from save_manager import to_save
 
 class Game:
  
@@ -11,7 +13,7 @@ class Game:
         self.is_game_over = False
         
     def start_game(self):
-        self.full_screen()
+    #   self.full_screen()
         self.clear_screen()
         print("=== Jeu de Survie sur l'Île ===\n")
         self.player.name = input("Entrez le nom de votre personnage : ")
@@ -36,12 +38,23 @@ class Game:
         difficulty_settings = difficulty_manager(selected_difficulty)
         self.player.daily_mult = difficulty_settings["daily_mult"]
         
+        while True:
+            try: 
+                if keyboard.is_pressed('ctrl+s'):  # if key 'ctrl+s' is pressed 
+                player_saves = input("Voulez-vous sauvegarder la partie ? (oui/non) : ")
+                player_saves = player_saves.strip().lower()
+                self.to_save()
+                print('Game saving...')
+                break
+            except:
+                break  
+            
         while not self.is_game_over and self.day <= difficulty_settings["days_left"]:
             self.display_status()
             action = self.get_player_action()
             self.process_action(action)
-            self.clear_screen()
             # end of day automatic updates
+            self.clear_screen()
             self.player.end_day(difficulty_settings["growth_rate"])
             self.check_game_over()
             self.day += 1

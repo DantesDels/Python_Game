@@ -1,22 +1,17 @@
 import json
 import os
-import keyboard
 from player import Player
 
-def to_save(self, save_manager):
+def to_save(self):
     from datetime import datetime
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     if not os.path.exists('../saves/'):
         os.makedirs('../saves/')
         
-    if keyboard.is_pressed('ctrl+s'):
-        player_saves = input("Voulez-vous sauvegarder la partie ? (oui/non) : ")
-        player_saves = player_saves.strip().lower()
-        
     if player_saves in ['oui', 'o', 'yes', 'y']:
         print("Partie sauvegardée.\n")
-        save_manager.save_game(timestamp, self.player, self)
+        save_game(timestamp, self.player, self)
     elif player_saves in ['non', 'n', 'no']:
         print("Sauvegarde annulée.\n")
         return
@@ -24,7 +19,7 @@ def to_save(self, save_manager):
         print("Entrée invalide. Sauvegarde annulée.\n")
         return
     
-    save_manager.save_game(timestamp, self.player, self)
+    save_game(timestamp, self)
     print(f"Partie sauvegardée sous le nom : {timestamp}\n")
 
 
@@ -50,5 +45,4 @@ def save_game(timestamp, player, game):
 def load_game(timestamp):
     with open(f'../saves/{timestamp}.json', 'r', encoding='utf-8') as save_file:
         loaded_data = json.load(save_file)
-    print("Game loaded successfully!")
     return loaded_data
