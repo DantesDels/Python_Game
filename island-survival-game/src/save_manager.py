@@ -1,14 +1,25 @@
 import json
 import os
+import re
 from datetime import datetime
 from player import Player
 from difficulty_manager import difficulty_manager
 
-def save_game(game):
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+SAVES_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'saves'))
+TIMESTAMP_PATTERN = re.compile(r'^\d{8}_\d{6}\.json$')  # 20251019_142530.json
 
-    print(f"{game.player.name} | {game.player.days_survived} | {game.player.hunger} | {game.player.thirst} | {game.player.energy} - Sauvegarde de la partie en cours...")
+def ensure_saves_dir():
+    if not os.path.exists(SAVES_DIR):
+        os.makedirs(SAVES_DIR, exist_ok=True)
+
+def save_game(game):
+    ensure_saves_dir()
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"{timestamp}.json"
+    filepath = os.path.join(SAVES_DIR, filename)
     
+    print(f"{game.player.name} | {game.player.days_survived} | {game.player.hunger} | {game.player.thirst} | {game.player.energy} - Saving game...")
+
     player = Player(
         name=game.player.name,
         hunger=game.player.hunger,
@@ -25,31 +36,48 @@ def save_game(game):
             'thirst': player.thirst,
             'energy': player.energy,
             'days_survived': player.days_survived
-            },
+        },
         'game': {
-            'difficulty': game.selected_difficulty
-            }
+            'difficulty': getattr(game, 'selected_difficulty', None)
         }
-    with open(f'../saves/{timestamp}.json', 'w', encoding='utf-8') as save_file:
+    }
+ 
+    with open(filepath, 'w', encoding='utf-8') as save_file:
         json.dump(saved_data, save_file)
-        print(f"Partie sauvegardée : {timestamp}\n")
-        return saved_data
+        
+    print(f"Partie sauvegardée : {timestamp}\n")
+    return saved_data
     
     
 def to_save(self):
-    if not os.path.exists('../saves/'):
-        os.makedirs('../saves/')
-
     save_game(self)
 
+
 def to_load():
-    with open(f'../saves/{datetime}.json', 'r', encoding='utf-8') as save_file:
-        loaded_data = json.load(save_file)
-        print(f"Liste des sauvegardes disponibles :\n")
-        for save in loaded_data:
-            print(f" - {save['save_name']} : {save['player']['name']} (Jours survécus : {save['player']['days_survived']})")
-        selected_save = input(f"\n\n Entrez le nom de la sauvegarde à charger : ")
-        for save in loaded_data:
-            if save['save_name'] == selected_save:
-                print(f"Sauvegarde chargée : {selected_save}\n")
-    return loaded_data
+    ensure_saves_dir()
+    save_files = [f for f in os.listdir(SAVES_DIR) if TIMESTAMP_PATTERN.match(f)]
+    if not save_files:
+        print("Aucune sauvegarde trouvée.")
+        return None
+
+    save_files.sort(reverse=True) # latest save comes first
+    
+    saves = []
+    for save_file in save_files:
+        with open(os.path.join(SAVES_DIR, save_file), 'r', encoding='utf-8') as f:
+            save_data = json.load(f)
+            saves.append(save_data)
+
+    print("Liste des sauvegardes disponibles :\n")    
+    for i, (save_data) in enumerate(saves, start=1):
+        player = save_data['player']
+        print(f"{i}. {save_data['save_name']} - {player['name']} (Jours survécus : {player['days_survived']})")
+        
+    choice = input("\nEntrez le numéro de la sauvegarde à charger : ")
+    if not choice.isdigit() or int(choice) < 1 or int(choice) > len(saves):
+        print("Choix invalide. Aucune sauvegarde chargée.")
+        return None
+    else :
+        selected_save = saves[int(choice) - 1]
+        print(f"Sauvegarde chargée : {selected_save['save_name']}\n")
+        return selected_save

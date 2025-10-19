@@ -84,7 +84,7 @@ class Game:
         elif action == "save":
             to_save(self)
         elif action == "load":
-            to_load(self)
+            to_load()
         else:
             print("Action invalide. Aucun effet pour ce tour.")
 
