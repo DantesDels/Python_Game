@@ -1,9 +1,7 @@
 import os
 from utils import format_gauge
-from difficulty_manager import difficulty_manager
 from player import Player
-from save_manager import to_save , to_load, save_game
-from difficulty_manager import select_difficulty
+from difficulty_manager import difficulty_manager, select_difficulty
 from player_actions import get_player_action, process_action
 
 class Game:

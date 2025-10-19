@@ -2,7 +2,7 @@ import json
 import os
 from datetime import datetime
 from player import Player
-from difficulty_manager import difficulty_manager
+from game import Game
 
 def save_game(game):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -39,13 +39,13 @@ def save_game(game):
 def to_save(self):
     if not os.path.exists('../saves/'):
         os.makedirs('../saves/')
-
     save_game(self)
+
 
 def to_load(timestamp):
     with open(f'../saves/{timestamp}.json', 'r', encoding='utf-8') as save_file:
         loaded_data = json.load(save_file)
-        
+
         selected_save = int(input("Sélectionnez le Numéro de la Partie à charger : "))
-        print(f"Partie chargée : {timestamp}\n")
+        print(f"Partie chargée : {selected_save} - {loaded_data['save_name']}\n")
     return loaded_data
