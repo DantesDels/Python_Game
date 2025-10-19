@@ -41,11 +41,9 @@ class Game:
         while True:
             try: 
                 if keyboard.is_pressed('ctrl+s'):  # if key 'ctrl+s' is pressed 
-                player_saves = input("Voulez-vous sauvegarder la partie ? (oui/non) : ")
-                player_saves = player_saves.strip().lower()
-                self.to_save()
-                print('Game saving...')
-                break
+                    self.to_save()
+                    print('Game saving...')
+                    break
             except:
                 break  
             

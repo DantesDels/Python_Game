@@ -8,7 +8,10 @@ def to_save(self):
     
     if not os.path.exists('../saves/'):
         os.makedirs('../saves/')
-        
+    
+    player_saves = input("Voulez-vous sauvegarder la partie ? (oui/non) : ")
+    player_saves = player_saves.strip().lower()
+      
     if player_saves in ['oui', 'o', 'yes', 'y']:
         print("Partie sauvegardée.\n")
         save_game(timestamp, self.player, self)
