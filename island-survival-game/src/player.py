@@ -52,17 +52,17 @@ class Player:
             print("Calm exploration — nothing notable.")
             
     def get_difficulty(self, difficulty):
-        with open('difficulty_player.json', 'r') as difficulty_player_file:
+        with open('../res/difficulty_player.json', 'r') as difficulty_player_file:
             difficulties = json.load(difficulty_player_file)
         return difficulties.get(difficulty, difficulties["Baby"])
 
     def is_alive(self):
-        return self.hunger < 100 and self.thirst < 100 and self.energy > 0
+        return not (self.hunger.is_critical() or self.thirst.is_critical() or self.energy.is_critical())
     
     def reset(self):
-        self.hunger = 20
-        self.thirst = 20
-        self.energy = 50
+        self.hunger = Gauge("Hunger", initial_value=20, critical_value=100)
+        self.thirst = Gauge("Thirst", initial_value=20, critical_value=100)
+        self.energy = Gauge("Energy", initial_value=50, critical_value=0)
         self.days_survived = 0
         self.daily_mult = 0.5
 

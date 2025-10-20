@@ -1,5 +1,5 @@
+import utils
 import os
-from utils import format_gauge
 from player import Player
 from difficulty_manager import difficulty_manager, select_difficulty
 from player_actions import get_player_action, process_action
@@ -17,14 +17,14 @@ class Game:
         #     if key.is_pressed('²'):
         #         display_main_menu()
         # self.full_screen()
-        self.clear_screen()
+        utils.clear_screen()
         print("=== Jeu de Survie sur l'Île ===\n")
         self.player.name = input("Entrez le nom de votre personnage : ")
-        self.clear_screen()
+        utils.clear_screen()
 
         print(f"Bienvenue à toi {self.player.name} !\n")
-        select_difficulty(self)
-        self.clear_screen()
+        selected_difficulty = select_difficulty()
+        utils.clear_screen()
         
         print("Bienvenue sur l'île — survivez le plus longtemps possible !\n")
         difficulty_settings = difficulty_manager(selected_difficulty)
@@ -44,34 +44,10 @@ class Game:
             print("Félicitations ! Vous avez survécu jusqu'à la fin du défi !")
               
     def display_status(self):
-        print(f"Jour {self.day}")
+        print(f"{self.player.name} | Jour {self.day}")
         print(self.player.hunger)
         print(self.player.thirst)
         print(self.player.energy)
-
-    def get_player_action(self):
-        action = input("Choisissez une action (pêcher, eau, dormir, explorer) : ")
-        # map french/english inputs
-        action = action.strip().lower()
-        map = {
-            'pêcher': 'fish', 'pecher': 'fish', 'fish': 'fish',
-            'eau': 'search_water', 'chercher': 'search_water', 'search_water': 'search_water',
-            'dormir': 'sleep', 'sleep': 'sleep',
-            'explorer': 'explore', 'explore': 'explore'
-        }
-        return map.get(action, action)
-    
-    def process_action(self, action, difficulty_settings):
-        if action == "fish":
-            self.player.fish()
-        elif action == "search_water":
-            self.player.search_water()
-        elif action == "sleep":
-            self.player.sleep()
-        elif action == "explore":
-            self.player.explore()
-        else:
-            print("Action invalide. Aucun effet pour ce tour.")
             
     def end_day(self, growth_rate):
         self.player.days_survived += 1
@@ -88,19 +64,6 @@ class Game:
             self.display_status()
             print(f"Vous avez survécu pendant {self.player.days_survived} jours.\n")
             self.reset_game()
-         
-    def clear_screen(self):
-        if os.name == 'nt':
-            os.system('cls') # Windows
-        else:
-            os.system('clear') # Unix/Linux/MacOS
-
-#    def full_screen(self):
-#        if os.name == 'nt':
-#            os.system('mode con: cols=300 lines=100')
-#        else:
-#            os.system('printf "\e[8;100;300t"')
-#        return self
 
     def clear_game(self):
         self.player.reset()

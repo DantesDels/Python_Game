@@ -9,10 +9,10 @@ class Gauge:
         self.critical_value = critical_value
 
     def increase(self, amount):
-        self.value = min(self.MAX_VALUE, self.value + amount)
+        self.value = int(min(self.MAX_VALUE, self.value + amount))
 
     def decrease(self, amount):
-        self.value = max(self.MIN_VALUE, self.value - amount)
+        self.value = int(max(self.MIN_VALUE, self.value - amount))
 
     def is_critical(self):
         return self.value == self.critical_value
@@ -20,4 +20,4 @@ class Gauge:
     def __str__(self):
         filled_length = int(self.value / self.MAX_VALUE * 20)
         bar = '█' * filled_length + '-' * (20 - filled_length)
-        return f"|{bar}| {self.value}/{self.MAX_VALUE} - ({self.name})"
+        return f"|{bar}| {self.value}/{self.MAX_VALUE} - {self.name}"
