@@ -10,6 +10,7 @@ class Game:
         self.player : Player = player
         self.day = 1
         self.is_game_over = False
+        self.daily_mult = 0.5
         
     def start_game(self):
     #   self.full_screen()
@@ -23,16 +24,15 @@ class Game:
         self.clear_screen()
         
         print("Bienvenue sur l'île — survivez le plus longtemps possible !\n")
-        difficulty_settings = difficulty_manager(self.selected_difficulty)
-        self.player.daily_mult = difficulty_settings["daily_mult"]
-            
+        difficulty_settings = difficulty_manager(selected_difficulty)
+        self.daily_mult = difficulty_settings["daily_mult"]
+        
         while not self.is_game_over and self.day <= difficulty_settings["days_left"]:
             self.display_status()
             action = get_player_action()
             process_action(self, action)
             # end of day automatic updates
-            self.clear_screen()
-            self.player.end_day(difficulty_settings["growth_rate"])
+            self.end_day(difficulty_settings["growth_rate"])
             self.check_game_over()
             self.day += 1
         print(f"Partie terminée après {self.player.days_survived} jours.\n")
@@ -41,10 +41,42 @@ class Game:
             print("Félicitations ! Vous avez survécu jusqu'à la fin du défi !")
               
     def display_status(self):
-        print(f"{self.player.name} | Jour {self.day} | Difficulté : {self.selected_difficulty}\n")
-        print("   Faim : ", format_gauge(self.player.hunger, 100))
-        print("   Soif : ", format_gauge(self.player.thirst, 100))
-        print("Energie : ", format_gauge(self.player.energy, 100), "\n")
+        print(f"Jour {self.day}")
+        print(self.player.hunger)
+        print(self.player.thirst)
+        print(self.player.energy)
+
+    def get_player_action(self):
+        action = input("Choisissez une action (pêcher, eau, dormir, explorer) : ")
+        # map french/english inputs
+        action = action.strip().lower()
+        map = {
+            'pêcher': 'fish', 'pecher': 'fish', 'fish': 'fish',
+            'eau': 'search_water', 'chercher': 'search_water', 'search_water': 'search_water',
+            'dormir': 'sleep', 'sleep': 'sleep',
+            'explorer': 'explore', 'explore': 'explore'
+        }
+        return map.get(action, action)
+    
+    def process_action(self, action, difficulty_settings):
+        if action == "fish":
+            self.player.fish()
+        elif action == "search_water":
+            self.player.search_water()
+        elif action == "sleep":
+            self.player.sleep()
+        elif action == "explore":
+            self.player.explore()
+        else:
+            print("Action invalide. Aucun effet pour ce tour.")
+            
+    def end_day(self, growth_rate):
+        self.player.days_survived += 1
+        self.daily_mult *= (1 + growth_rate)
+        # natural deterioration per day
+        self.player.hunger.increase(self.daily_mult)
+        self.player.thirst.increase(self.daily_mult)
+        self.player.energy.decrease(self.daily_mult)
 
     def check_game_over(self):
         if not self.player.is_alive():

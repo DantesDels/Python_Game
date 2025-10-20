@@ -1,5 +1,6 @@
 from player import Player
 import json
+import os
 
 def difficulty_manager(difficulty_level):
     difficulty = open('../res/difficulty_level.json', 'r', encoding='utf-8')
