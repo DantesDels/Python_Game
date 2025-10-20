@@ -32,6 +32,10 @@ class Game:
             self.daily_mult = difficulty_settings["daily_mult"]
         else:
             difficulty_settings = difficulty_manager(self.selected_difficulty)
+            self.daily_mult = difficulty_settings["daily_mult"]
+            self.day = self.player.days_survived
+            for i in range(1, self.player.days_survived + 1):
+                self.daily_mult *= (1 + difficulty_settings["growth_rate"])
             print(f"Chargement de la partie...\n")
             
         while not self.is_game_over and self.day <= difficulty_settings["days_left"]:

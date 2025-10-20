@@ -19,14 +19,8 @@ def save_game(game):
     
     print(f"{game.player.name} | {game.player.days_survived} | {game.player.hunger} | {game.player.thirst} | {game.player.energy} - Saving game...")
 
-    player = Player(
-        name=game.player.name,
-        hunger=game.player.hunger,
-        thirst=game.player.thirst,
-        energy=game.player.energy,
-        days_survived=game.player.days_survived
-    )
-
+    player = game.player
+    
     saved_data = {
         'save_name': timestamp,
         'player': {
