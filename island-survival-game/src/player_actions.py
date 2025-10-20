@@ -1,3 +1,4 @@
+import utils
 from save_manager import to_save, to_load
 
 def get_player_action():
@@ -29,7 +30,7 @@ def process_action(game, action):
     elif action == "load":
         to_load(game)
     elif action == "exit":
-        game.clear_screen()
+        utils.clear_screen()
         print("\n Merci d'avoir joué !")
         exit()
     else:
