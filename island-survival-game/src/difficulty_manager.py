@@ -8,9 +8,6 @@ def load_json_filename(filename):
     with open(path, 'r', encoding='utf-8') as f:
         return json.load(f)
 
-def difficulty_manager(difficulty_level, difficulty_player):
-    level_difficulty_data = load_json_filename('difficulty_level.json')
-    player_difficulty_data = load_json_filename('difficulty_player.json')
-    return player_difficulty_data.get(difficulty_player, player_difficulty_data.get("Baby"))
-
-# Python peut return des tuples.
+def difficulty_manager(difficulty_level):
+    difficulty_data = load_json_filename('difficulty_world.json')
+    return difficulty_data.get(difficulty_level, difficulty_data.get("Baby"))

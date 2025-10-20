@@ -59,7 +59,7 @@ class Player:
             print("Calm exploration — nothing notable.")
             
     def get_difficulty(self, difficulty):
-        with open('difficulty_player.json', 'r') as difficulty_player_file:
+        with open('../res/difficulty_player.json', 'r') as difficulty_player_file:
             difficulties = json.load(difficulty_player_file)
         return difficulties.get(difficulty, difficulties["Baby"])
 
