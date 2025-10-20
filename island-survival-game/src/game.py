@@ -1,5 +1,6 @@
 import utils
 import os
+from difficulty_manager import difficulty_manager
 from player import Player
 from difficulty_manager import difficulty_manager, select_difficulty
 from player_actions import get_player_action, process_action
@@ -12,24 +13,27 @@ class Game:
         self.is_game_over = False
         self.daily_mult = 0.5
         
-    def start_game(self):
-        # while True:
-        #     if key.is_pressed('²'):
-        #         display_main_menu()
-        # self.full_screen()
+    def start_game(self, from_load=False):
+    #   self.full_screen()
         utils.clear_screen()
-        print("=== Jeu de Survie sur l'Île ===\n")
-        self.player.name = input("Entrez le nom de votre personnage : ")
-        utils.clear_screen()
+        
+        if not from_load:
+            print("=== Jeu de Survie sur l'Île ===\n")
+            self.player.name = input("Entrez le nom de votre personnage : ")
+            utils.clear_screen()
 
-        print(f"Bienvenue à toi {self.player.name} !\n")
-        selected_difficulty = select_difficulty()
-        utils.clear_screen()
-        
-        print("Bienvenue sur l'île — survivez le plus longtemps possible !\n")
-        difficulty_settings = difficulty_manager(selected_difficulty)
-        self.daily_mult = difficulty_settings["daily_mult"]
-        
+            print(f"Bienvenue à toi {self.player.name} !\n")
+            selected_difficulty = select_difficulty()
+            self.selected_difficulty = selected_difficulty
+            utils.clear_screen()
+            
+            print("Bienvenue sur l'île — survivez le plus longtemps possible !\n")
+            difficulty_settings = difficulty_manager(selected_difficulty)
+            self.daily_mult = difficulty_settings["daily_mult"]
+        else:
+            difficulty_settings = difficulty_manager(self.selected_difficulty)
+            print(f"Chargement de la partie...\n")
+            
         while not self.is_game_over and self.day <= difficulty_settings["days_left"]:
             self.display_status()
             action = get_player_action()

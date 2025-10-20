@@ -27,7 +27,7 @@ def process_action(game, action):
     elif action == "save":
         to_save(game)
     elif action == "load":
-        to_load()
+        to_load(game)
     elif action == "exit":
         game.clear_screen()
         print("\n Merci d'avoir joué !")
