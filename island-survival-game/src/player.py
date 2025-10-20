@@ -2,14 +2,21 @@ from gauges import Gauge
 import json
 
 class Player:
-    def __init__(self, name, difficulty="Baby"):
+    def __init__(self, name, difficulty="Baby", hunger=None, thirst=None, energy=None, days_survived=0):
         self.name = name
         # starting values
         initial_values = self.get_difficulty(difficulty)
-        self.hunger = Gauge("Hunger", initial_value=initial_values["hunger"], critical_value=100)
-        self.thirst = Gauge("Thirst", initial_value=initial_values["thirst"], critical_value=100)
-        self.energy = Gauge("Energy", initial_value=initial_values["energy"], critical_value=0)
-        self.days_survived = 0
+        
+        self.hunger = Gauge("Hunger", initial_value=hunger if hunger is not None 
+                            else initial_values["hunger"], critical_value=100)
+        
+        self.thirst = Gauge("Thirst", initial_value=thirst if thirst is not None 
+                            else initial_values["thirst"], critical_value=100)
+        
+        self.energy = Gauge("Energy", initial_value=energy if energy is not None 
+                            else initial_values["energy"], critical_value=0)
+        
+        self.days_survived = days_survived
 
     def eat(self, amount):
         self.hunger.increase(amount)

@@ -1,5 +1,4 @@
 import os
-from utils import format_gauge
 from difficulty_manager import difficulty_manager
 from player import Player
 from save_manager import to_save , to_load, save_game
@@ -12,32 +11,37 @@ class Game:
         self.is_game_over = False
         self.daily_mult = 0.5
         
-    def start_game(self):
+    def start_game(self, from_load=False):
     #   self.full_screen()
         self.clear_screen()
-        print("=== Jeu de Survie sur l'Île ===\n")
-        self.player.name = input("Entrez le nom de votre personnage : ")
-        self.clear_screen()
+        
+        if not from_load:
+            print("=== Jeu de Survie sur l'Île ===\n")
+            self.player.name = input("Entrez le nom de votre personnage : ")
+            self.clear_screen()
 
-        print(f"Bienvenue à toi {self.player.name} !\n")
-        selected_difficulty = input("Selectionnez une difficulté :\n 1 - Baby\n 2 - Easy\n 3 - Medium\n 4 - Hard\n 5 - Hardcore\n 6 - Nightmare\n\n  Votre choix : ")
-        selected_difficulty = selected_difficulty.strip().lower()
-        difficulty_map = {
-            '1': 'Baby', 'baby': 'Baby', 'Baby': 'Baby',
-            '2': 'Easy', 'easy': 'Easy', 'Easy': 'Easy',
-            '3': 'Medium', 'medium': 'Medium', 'Medium': 'Medium',
-            '4': 'Difficult', 'difficult': 'Difficult', 'Difficult': 'Difficult',
-            '5': 'Hardcore', 'hardcore': 'Hardcore', 'Hardcore': 'Hardcore',
-            '6': 'Nightmare', 'nightmare': 'Nightmare', 'Nightmare': 'Nightmare'
-        }
-        selected_difficulty = difficulty_map.get(selected_difficulty, 'Baby')
-        self.selected_difficulty = selected_difficulty
-        self.clear_screen()
-        
-        print("Bienvenue sur l'île — survivez le plus longtemps possible !\n")
-        difficulty_settings = difficulty_manager(selected_difficulty)
-        self.daily_mult = difficulty_settings["daily_mult"]
-        
+            print(f"Bienvenue à toi {self.player.name} !\n")
+            selected_difficulty = input("Selectionnez une difficulté :\n 1 - Baby\n 2 - Easy\n 3 - Medium\n 4 - Hard\n 5 - Hardcore\n 6 - Nightmare\n\n  Votre choix : ")
+            selected_difficulty = selected_difficulty.strip().lower()
+            difficulty_map = {
+                '1': 'Baby', 'baby': 'Baby', 'Baby': 'Baby',
+                '2': 'Easy', 'easy': 'Easy', 'Easy': 'Easy',
+                '3': 'Medium', 'medium': 'Medium', 'Medium': 'Medium',
+                '4': 'Difficult', 'difficult': 'Difficult', 'Difficult': 'Difficult',
+                '5': 'Hardcore', 'hardcore': 'Hardcore', 'Hardcore': 'Hardcore',
+                '6': 'Nightmare', 'nightmare': 'Nightmare', 'Nightmare': 'Nightmare'
+            }
+            selected_difficulty = difficulty_map.get(selected_difficulty, 'Baby')
+            self.selected_difficulty = selected_difficulty
+            self.clear_screen()
+            
+            print("Bienvenue sur l'île — survivez le plus longtemps possible !\n")
+            difficulty_settings = difficulty_manager(selected_difficulty)
+            self.daily_mult = difficulty_settings["daily_mult"]
+        else:
+            difficulty_settings = difficulty_manager(self.selected_difficulty)
+            print(f"Chargement de la partie...\n")
+            
         while not self.is_game_over and self.day <= difficulty_settings["days_left"]:
             self.display_status()
             action = self.get_player_action()
@@ -84,7 +88,7 @@ class Game:
         elif action == "save":
             to_save(self)
         elif action == "load":
-            to_load()
+            to_load(self)
         else:
             print("Action invalide. Aucun effet pour ce tour.")
             
