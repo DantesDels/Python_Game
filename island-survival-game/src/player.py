@@ -24,39 +24,39 @@ class Player:
     def drink(self, amount):
         self.thirst.increase(amount)
 
-    def sleep(self):
-        self.energy.increase(50)
-        self.hunger.decrease(10)
-        self.thirst.decrease(10)
+    def sleep(self, amount):
+        self.energy.increase(amount)
+        self.hunger.decrease(amount)
+        self.thirst.decrease(amount)
 
-    def fish(self):
+    def fish(self, amount):
         # fishing reduces hunger but costs energy
-        self.hunger.decrease(25)
-        self.energy.decrease(15)
+        self.hunger.decrease(amount)
+        self.energy.decrease(amount)
 
-    def search_water(self):
+    def search_water(self, amount):
         # searching water reduces thirst but costs energy
-        self.thirst.decrease(30)
-        self.energy.decrease(15)
+        self.thirst.decrease(amount)
+        self.energy.decrease(amount)
 
-    def explore(self):
+    def explore(self, amount):
         # simple random event: small chance to find resources or get hurt
         import random
         roll = random.randint(1, 100)
         if roll <= 10:
             # find food
             print("Tu as trouvé de la nourriture ! La faim diminue.")
-            self.hunger = max(0, self.hunger - 30)
+            self.hunger = max(0, self.hunger - amount)
         elif roll <= 20:
             # find water
             print("Tu as trouvé de l'eau potable ! La soif diminue.")
-            self.thirst = max(0, self.thirst - 30)
+            self.thirst = max(0, self.thirst - amount)
         elif roll <= 40:
             # encounter - lose energy
             print("Rencontre dangereuse — vous avez été blessé. Énergie réduite.")
-            self.energy = max(0, self.energy + 30)
+            self.energy = max(0, self.energy + amount)
         else:
-            print("Calm exploration — nothing notable.")
+            print("Tu as eu la Flemme d'explorer — Rien ne s'est passé.")
             
     def get_difficulty(self, difficulty):
         with open('../res/../res/difficulty_player.json', 'r') as difficulty_player_file:
