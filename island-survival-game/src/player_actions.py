@@ -19,12 +19,15 @@ def get_player_action():
 def process_action(game, action):
     if action == "fish":
         game.player.fish()
+    elif action == "hunt":
+        game.player.hunt()
     elif action == "search_water":
         game.player.search_water()
     elif action == "sleep":
         game.player.sleep()
     elif action == "explore":
         game.player.explore()
+    
     elif action == "save":
         to_save(game)
     elif action == "load":
@@ -33,5 +36,6 @@ def process_action(game, action):
         utils.clear_screen()
         print("\n Merci d'avoir joué !")
         exit()
+    
     else:
         print("Action invalide. Aucun effet pour ce tour.")

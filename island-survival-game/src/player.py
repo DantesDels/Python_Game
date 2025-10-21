@@ -18,43 +18,41 @@ class Player:
         
         self.days_survived = days_survived
 
-    def eat(self, amount):
+    def hunt(self, amount, energy_amount):
         self.hunger.increase(amount)
+        self.energy.decrease(energy_amount)
 
-    def drink(self, amount):
-        self.thirst.increase(amount)
-
-    def sleep(self, amount):
-        self.energy.increase(amount)
+    def sleep(self, amount, energy_amount):
+        self.energy.increase(energy_amount)
         self.hunger.decrease(amount)
         self.thirst.decrease(amount)
 
-    def fish(self, amount):
+    def fish(self, amount, energy_amount):
         # fishing reduces hunger but costs energy
         self.hunger.decrease(amount)
-        self.energy.decrease(amount)
+        self.energy.decrease(energy_amount)
 
-    def search_water(self, amount):
+    def search_water(self, amount, energy_amount):
         # searching water reduces thirst but costs energy
         self.thirst.decrease(amount)
-        self.energy.decrease(amount)
+        self.energy.decrease(energy_amount)
 
     def explore(self, amount):
         # simple random event: small chance to find resources or get hurt
         import random
         roll = random.randint(1, 100)
         if roll <= 10:
-            # find food
+            # find food - reduce hunger
             print("Tu as trouvé de la nourriture ! La faim diminue.")
             self.hunger = max(0, self.hunger - amount)
         elif roll <= 20:
-            # find water
+            # find water - reduce thirst
             print("Tu as trouvé de l'eau potable ! La soif diminue.")
             self.thirst = max(0, self.thirst - amount)
         elif roll <= 40:
             # encounter - lose energy
             print("Rencontre dangereuse — vous avez été blessé. Énergie réduite.")
-            self.energy = max(0, self.energy + amount)
+            self.energy = max(0, self.energy - amount)
         else:
             print("Tu as eu la Flemme d'explorer — Rien ne s'est passé.")
             
