@@ -1,5 +1,6 @@
 from gauges import Gauge
 from  utils import get_json_data
+from difficulty_manager import difficulty_manager
 
 class Player:
 
@@ -8,7 +9,7 @@ class Player:
         # starting player values
         INITIAL_VALUES = self.get_player_difficulty(difficulty)
         # world constants
-        WORLD_DIFFICULTY = self.get_world_difficulty(difficulty)
+        WORLD_DIFFICULTY = self.difficulty_manager(difficulty)
         DIFFICULTY_INCREASE = WORLD_DIFFICULTY["daily_mult"] * WORLD_DIFFICULTY["growth_rate"]
         self.amount_per_tour = WORLD_DIFFICULTY["amount_per_tour"] + DIFFICULTY_INCREASE
         self.energy_cost = WORLD_DIFFICULTY["energy_cost"] + DIFFICULTY_INCREASE
@@ -28,11 +29,6 @@ class Player:
         self.get_json_data = get_json_data('../res/difficulty_player.json')
         player_difficulties = self.get_json_data
         return player_difficulties.get(difficulty, player_difficulties["Baby"])
-
-    def get_world_difficulty(self, difficulty="Baby"):
-        self.get_json_data = get_json_data('../res/difficulty_world.json')
-        world_difficulties = self.get_json_data
-        return world_difficulties.get(difficulty, world_difficulties["Baby"])
 
     def hunt(self):
         self.hunger.increase(self.amount_per_tour)

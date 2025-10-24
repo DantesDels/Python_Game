@@ -1,10 +1,8 @@
 from player import Player
-import json
+from utils import get_json_data
 
 def difficulty_manager(difficulty_level):
-    difficulty = open('../res/difficulty_world.json', 'r', encoding='utf-8')
-    difficulty_data = json.load(difficulty)
-    difficulty.close()
+    difficulty_data = get_json_data('../res/difficulty_world.json')
     return difficulty_data.get(difficulty_level, difficulty_data["Baby"])
 
 def select_difficulty():
