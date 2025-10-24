@@ -6,22 +6,22 @@ class Player:
     def __init__(self, name, difficulty="Baby", hunger=None, thirst=None, energy=None, days_survived=0):
         self.name = name
         # starting player values
-        initial_values = self.get_player_difficulty(difficulty)
+        INITIAL_VALUES = self.get_player_difficulty(difficulty)
         # world constants
-        world_difficulty = self.get_world_difficulty(difficulty)
-        difficulty_increase = world_difficulty["daily_mult"] * world_difficulty["growth_rate"]
-        self.amount_per_tour = world_difficulty["amount_per_tour"] + difficulty_increase
-        self.energy_cost = world_difficulty["energy_cost"] + difficulty_increase
-        
-        self.hunger = Gauge("Hunger", initial_value=hunger if hunger is not None 
-                            else initial_values["hunger"], critical_value=100)
-        
-        self.thirst = Gauge("Thirst", initial_value=thirst if thirst is not None 
-                            else initial_values["thirst"], critical_value=100)
-        
-        self.energy = Gauge("Energy", initial_value=energy if energy is not None 
-                            else initial_values["energy"], critical_value=0)
-        
+        WORLD_DIFFICULTY = self.get_world_difficulty(difficulty)
+        DIFFICULTY_INCREASE = WORLD_DIFFICULTY["daily_mult"] * WORLD_DIFFICULTY["growth_rate"]
+        self.amount_per_tour = WORLD_DIFFICULTY["amount_per_tour"] + DIFFICULTY_INCREASE
+        self.energy_cost = WORLD_DIFFICULTY["energy_cost"] + DIFFICULTY_INCREASE
+
+        self.hunger = Gauge("Hunger", initial_value=hunger if hunger is not None
+                            else INITIAL_VALUES["hunger"], critical_value=100)
+
+        self.thirst = Gauge("Thirst", initial_value=thirst if thirst is not None
+                            else INITIAL_VALUES["thirst"], critical_value=100)
+
+        self.energy = Gauge("Energy", initial_value=energy if energy is not None
+                            else INITIAL_VALUES["energy"], critical_value=0)
+
         self.days_survived = days_survived
     
     def get_player_difficulty(self, difficulty="Baby"):
