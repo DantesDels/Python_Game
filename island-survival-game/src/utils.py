@@ -12,3 +12,9 @@ def clear_screen():
         os.system('cls') # Windows
     else:
         os.system('clear') # Unix/Linux/MacOS
+
+def get_json_data(file_path):
+    import json
+    with open(file_path, 'r') as json_file:
+        data = json.load(json_file)
+    return data

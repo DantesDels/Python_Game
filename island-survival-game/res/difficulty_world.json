@@ -2,31 +2,43 @@
     "Baby": {
         "days_left": 7,
         "daily_mult": 1,
-        "growth_rate": 2
+        "growth_rate": 2,
+        "amount_per_tour": 10,
+        "energy_cost": 5
     },
     "Easy": {
         "days_left": 31,
         "daily_mult": 0.5,
-        "growth_rate": 0.02
+        "growth_rate": 0.02,
+        "amount_per_tour": 8,
+        "energy_cost": 4
     },
     "Normal": {
         "days_left": 30,
         "daily_mult": 0.5,
-        "growth_rate": 0.03
+        "growth_rate": 0.03,
+        "amount_per_tour": 6,
+        "energy_cost": 3
     },
     "Difficult": {
         "days_left": 28,
         "daily_mult": 0.5,
-        "growth_rate": 0.04
+        "growth_rate": 0.04,
+        "amount_per_tour": 5,
+        "energy_cost": 2
     },
     "Hardcore": {
         "days_left": 20,
         "daily_mult": 0.5,
-        "growth_rate": 0.07
+        "growth_rate": 0.07,
+        "amount_per_tour": 4,
+        "energy_cost": 1
     },
     "Nightmare": {
         "days_left": 15,
         "daily_mult": 0.75,
-        "growth_rate": 0.75
+        "growth_rate": 0.75,
+        "amount_per_tour": 3,
+        "energy_cost": 1
     }
 }
