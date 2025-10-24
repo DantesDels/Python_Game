@@ -1,11 +1,17 @@
 from gauges import Gauge
-import json
+from  utils import get_json_data
 
 class Player:
+
     def __init__(self, name, difficulty="Baby", hunger=None, thirst=None, energy=None, days_survived=0):
         self.name = name
-        # starting values
-        initial_values = self.get_difficulty(difficulty)
+        # starting player values
+        initial_values = self.get_player_difficulty(difficulty)
+        # world constants
+        world_difficulty = self.get_world_difficulty(difficulty)
+        difficulty_increase = world_difficulty["daily_mult"] * world_difficulty["growth_rate"]
+        self.amount_per_tour = world_difficulty["amount_per_tour"] + difficulty_increase
+        self.energy_cost = world_difficulty["energy_cost"] + difficulty_increase
         
         self.hunger = Gauge("Hunger", initial_value=hunger if hunger is not None 
                             else initial_values["hunger"], critical_value=100)
@@ -17,49 +23,57 @@ class Player:
                             else initial_values["energy"], critical_value=0)
         
         self.days_survived = days_survived
+    
+    def get_player_difficulty(self, difficulty="Baby"):
+        self.get_json_data = get_json_data('../res/difficulty_player.json')
+        player_difficulties = self.get_json_data
+        return player_difficulties.get(difficulty, player_difficulties["Baby"])
 
-    def hunt(self, amount, energy_amount):
-        self.hunger.increase(amount)
-        self.energy.decrease(energy_amount)
+    def get_world_difficulty(self, difficulty="Baby"):
+        self.get_json_data = get_json_data('../res/difficulty_world.json')
+        world_difficulties = self.get_json_data
+        return world_difficulties.get(difficulty, world_difficulties["Baby"])
 
-    def sleep(self, amount, energy_amount):
-        self.energy.increase(energy_amount)
-        self.hunger.decrease(amount)
-        self.thirst.decrease(amount)
+    def hunt(self):
+        self.hunger.increase(self.amount_per_tour)
+        self.energy.decrease(self.energy_cost)
 
-    def fish(self, amount, energy_amount):
+    def fish(self):
         # fishing reduces hunger but costs energy
-        self.hunger.decrease(amount)
-        self.energy.decrease(energy_amount)
+        self.hunger.decrease(self.amount_per_tour)
+        self.energy.decrease(self.energy_cost)
 
-    def search_water(self, amount, energy_amount):
+    def search_water(self):
         # searching water reduces thirst but costs energy
-        self.thirst.decrease(amount)
-        self.energy.decrease(energy_amount)
+        self.thirst.decrease(self.amount_per_tour)
+        self.energy.decrease(self.energy_cost)
 
-    def explore(self, amount):
+    def sleep(self):
+        self.energy.increase(self.energy_cost)
+        self.hunger.decrease(self.amount_per_tour)
+        self.thirst.decrease(self.amount_per_tour)
+
+    def explore(self):
         # simple random event: small chance to find resources or get hurt
         import random
         roll = random.randint(1, 100)
         if roll <= 10:
-            # find food - reduce hunger
             print("Tu as trouvé de la nourriture ! La faim diminue.")
-            self.hunger = max(0, self.hunger - amount)
+            self.hunger = max(0, self.hunger.decrease(self.amount_per_tour))
+            self.energy = max(0, self.energy.decrease(self.energy_cost))
+
         elif roll <= 20:
-            # find water - reduce thirst
             print("Tu as trouvé de l'eau potable ! La soif diminue.")
-            self.thirst = max(0, self.thirst - amount)
+            self.thirst = max(0, self.thirst.decrease(self.amount_per_tour))
+            self.energy = max(0, self.energy.decrease(self.energy_cost))
+
         elif roll <= 40:
-            # encounter - lose energy
             print("Rencontre dangereuse — vous avez été blessé. Énergie réduite.")
-            self.energy = max(0, self.energy - amount)
+            self.hunger = max(0, self.hunger.increase(self.amount_per_tour))
+            self.thirst = max(0, self.thirst.increase(self.amount_per_tour))
+            self.energy = max(0, self.energy.decrease(self.energy_cost))
         else:
             print("Tu as eu la Flemme d'explorer — Rien ne s'est passé.")
-            
-    def get_difficulty(self, difficulty):
-        with open('../res/../res/difficulty_player.json', 'r') as difficulty_player_file:
-            difficulties = json.load(difficulty_player_file)
-        return difficulties.get(difficulty, difficulties["Baby"])
 
     def is_alive(self):
         return not (self.hunger.is_critical() or self.thirst.is_critical() or self.energy.is_critical())
