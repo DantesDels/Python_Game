@@ -1,4 +1,4 @@
-from utils import get_json_data
+from utils import get_json_data, clear_screen
 
 def difficulty_manager(difficulty_level):
     difficulty_data = get_json_data('../res/difficulty_world.json')
@@ -17,6 +17,7 @@ def select_difficulty():
         }
         
     while selected_difficulty not in difficulty_map:
+        clear_screen()
         print("Difficulté invalide. Réessayer !\n")
         selected_difficulty = input("Selectionnez une difficulté :\n 1 - Baby\n 2 - Easy\n 3 - Medium\n 4 - Hard\n 5 - Hardcore\n 6 - Nightmare\n\n  Votre choix : ")
         selected_difficulty = selected_difficulty.strip().lower()

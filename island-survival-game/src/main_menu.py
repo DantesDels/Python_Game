@@ -22,7 +22,7 @@ def display_main_menu(game):
     choice = map.get(choice, choice)
     if choice not in ['1', '2', '3', '4', '5']:
         print("Choix invalide. Veuillez réessayer.\n")
-        return display_main_menu()
+        return display_main_menu(game)
     elif choice == '1':
         print("Démarrage d'une nouvelle partie...\n")
         # Initialiser un nouvel objet de jeu ici
@@ -39,6 +39,6 @@ def display_main_menu(game):
         # Charger une partie spécifique
     elif choice == '5':
         utils.clear_screen()
-        print("Merci d'avoir joué ! À bientôt.")
+        print("Merci d'avoir joué ! À bientôt.\n\n")
         exit()
     return choice

@@ -1,6 +1,8 @@
+import utils
 import json
 import os
 import re
+import main_menu
 from datetime import datetime
 
 SAVES_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'saves'))
@@ -11,6 +13,7 @@ def ensure_saves_dir():
         os.makedirs(SAVES_DIR, exist_ok=True)
 
 def save_game(game):
+    utils.clear_screen()
     ensure_saves_dir()
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"{timestamp}.json"
@@ -37,7 +40,9 @@ def save_game(game):
     with open(filepath, 'w', encoding='utf-8') as save_file:
         json.dump(saved_data, save_file)
         
-    print(f"Partie sauvegardée : {timestamp}\n")
+    print(f"Partie sauvegardée : {timestamp}\n\n")
+    print(f"Appuyez sur une touche pour revenir à la partie...")
+    input()
     return saved_data
     
     
@@ -63,9 +68,13 @@ def to_load(game):
     for i, (save_data) in enumerate(saves, start=1):
         player_dict = save_data['player']
         print(f"{i}. {save_data['save_name']} - {player_dict['name']} | Jours {player_dict['days_survived']} | Difficulté : {save_data['game']['difficulty']} | Faim: {player_dict['hunger']} / Soif: {player_dict['thirst']} / Énergie: {player_dict['energy']}")
-
-    choice = input("\nEntrez le numéro de la sauvegarde à charger : ")
-    if not choice.isdigit() or int(choice) < 1 or int(choice) > len(saves):
+        
+    print(f"\n R - Retour au menu principal\n")
+    choice = input("Entrez le numéro de la sauvegarde à charger : ")
+    if choice.strip().lower() == 'r':
+        print("Retour au menu principal...\n")
+        return main_menu.display_main_menu(game)
+    elif not choice.isdigit() or int(choice) < 1 or int(choice) > len(saves):
         print("Choix invalide. Aucune sauvegarde chargée.")
         return None
     else :
