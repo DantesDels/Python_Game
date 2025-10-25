@@ -1,6 +1,17 @@
 {
   "events": [
     {
+      "id": 0,
+      "name": "-",
+      "Ascii_art": "", 
+      "description": "Rien de particulier ne s'est passé aujourd'hui.",
+      "effect": {
+        "type": "energy_decrease",
+        "magnitude": 10
+      },
+      "chance": 50
+    },
+    {
       "id": 1,
       "name": "Tempête soudaine",
       "Ascii_art": "", 
@@ -9,7 +20,7 @@
         "type": "energy_decrease",
         "magnitude": 15
       },
-      "chance": 20
+      "chance": 60
     },
     {
       "id": 2,
@@ -20,7 +31,7 @@
         "type": "thirst_decrease",
         "magnitude": 20
       },
-      "chance": 15
+      "chance": 70
     },
     {
       "id": 3,
@@ -31,7 +42,7 @@
         "type": "hunger_decrease",
         "magnitude": 25
       },
-      "chance": 15
+      "chance": 80
     },
     {
       "id": 4,
@@ -42,7 +53,7 @@
         "type": "energy_decrease",
         "magnitude": 10
       },
-      "chance": 10
+      "chance": 90
     },
     {
       "id": 5,
@@ -53,7 +64,7 @@
         "type": "energy_increase",
         "magnitude": 20
       },
-      "chance": 10
+      "chance": 100
     }
   ]
 }

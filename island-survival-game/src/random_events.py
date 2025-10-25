@@ -1,24 +1,26 @@
-import random
 import utils
 
 def apply_effect(player, effect):
     if effect["type"] == "hunger_increase":
-        player.hunger.increase(effect["magnitude"])
+        player.hunger.increase(effect["cost"])
     elif effect["type"] == "hunger_decrease":
-        player.hunger.decrease(effect["magnitude"])
+        player.hunger.decrease(effect["cost"])
 
     elif effect["type"] == "thirst_increase":
-        player.thirst.increase(effect["magnitude"])
+        player.thirst.increase(effect["cost"])
     elif effect["type"] == "thirst_decrease":
-        player.thirst.decrease(effect["magnitude"])
+        player.thirst.decrease(effect["cost"])
 
     elif effect["type"] == "energy_increase":
-        player.energy.increase(effect["magnitude"])
+        player.energy.increase(effect["cost"])
     elif effect["type"] == "energy_decrease":
-        player.energy.decrease(effect["magnitude"])
+        player.energy.decrease(effect["cost"])
+    else:
+        print("Erreur : Type d'effet inconnu.")
 
 def trigger_random_event(game):
-    events = utils.get_json_data('../res/random_events.json')
+    data = utils.get_json_data('../res/random_events.json')
+    events = data["events"]
     roll = utils.generate_random_number(1, 100)
     for event in events:
         try:

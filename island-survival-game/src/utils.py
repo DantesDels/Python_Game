@@ -60,5 +60,5 @@ def log_error(message):
     ensure_dir('logs')
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     filepath = os.path.join(os.path.dirname(__file__), '..', 'logs', 'error_log.txt')
-    with open(filepath, 'w', encoding='utf-8') as log_file:
+    with open(filepath, 'a', encoding='utf-8') as log_file:
         log_file.write(f"{timestamp} - {message}\n")
