@@ -10,10 +10,9 @@ class Game:
         self.player : Player = player
         self.day = 1
         self.is_game_over = False
-        self.daily_mult = 0.5
         
     def start_game(self, from_load=False):
-    #   self.full_screen()
+    #   utils.full_screen()
         utils.clear_screen()
         
         if not from_load:
@@ -49,7 +48,7 @@ class Game:
         
         if not self.is_game_over:
             print("Félicitations ! Vous avez survécu jusqu'à la fin du défi !")
-              
+
     def display_status(self):
         print(f"{self.player.name} | Jour {self.day}")
         print(self.player.hunger)

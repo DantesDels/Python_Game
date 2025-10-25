@@ -1,4 +1,4 @@
-from random import random
+import random
 from gauges import Gauge
 from  utils import get_json_data
 from difficulty_manager import difficulty_manager
@@ -37,12 +37,10 @@ class Player:
         self.energy.decrease(self.energy_cost)
 
     def fish(self):
-        # fishing reduces hunger but costs energy
         self.hunger.decrease(self.amount_per_tour)
         self.energy.decrease(self.energy_cost)
 
     def search_water(self):
-        # searching water reduces thirst but costs energy
         self.thirst.decrease(self.amount_per_tour)
         self.energy.decrease(self.energy_cost)
 
@@ -52,7 +50,6 @@ class Player:
         self.thirst.decrease(self.amount_per_tour)
 
     def explore(self):
-        # simple random event: small chance to find resources or get hurt
         roll = random.randint(1, 100)
         if roll <= 10:
             print("Tu as trouvé de la nourriture ! La faim diminue.")

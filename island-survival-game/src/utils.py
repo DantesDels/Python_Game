@@ -1,6 +1,7 @@
 import random
 import os
 import json
+from main_menu import display_main_menu
 
 
 def generate_random_number(min_value, max_value):
@@ -20,3 +21,15 @@ def get_json_data(file_path):
         data = json.load(json_file)
         json_file.close() # not obligatory due to 'with' statement, and context manager
     return data
+
+def go_to_menu(self):
+    menu_input = input("Voulez-vous retourner au menu principal ? (o/n) : ")
+    if menu_input.strip().lower() in ['o', 'oui', 'y', 'yes']:
+        display_main_menu()
+    elif menu_input.strip().lower() in ['n', 'non', 'no']:
+        self.clear_screen()
+        print("Retour au jeu...")
+    else:
+        self.clear_screen()
+        print("Choix invalide. Veuillez réessayer.")
+        self.go_to_menu()
