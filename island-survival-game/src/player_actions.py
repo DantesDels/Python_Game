@@ -1,40 +1,47 @@
+import utils
 from main_menu import display_main_menu
 
 def get_player_action():
-    print("\nActions disponibles :\n 1 - Chasser\n 2 - Pêcher\n 3 - Chercher de l'Eau\n 4 - Dormir\n 5 - Explorer\n\n M - Menu Principal")
-    action = input("\n\n  Votre choix : ")
+    print("\nActions Disponibles :\n    1. Chasser\n    2. Pêcher\n    3. Chercher de l'Eau\n    4. Dormir\n    5. Explorer\n\n    M. Menu Principal")
+    action = input("\n  Votre choix : ")
+    if action.isspace():
+        action = "Bouh le Nul ! Il s'est foiré"
+        return action
     action = action.strip().lower()
     map = {
-        '1': 'hunt', 'chasser': 'hunt', 'hunt': 'hunt',
-        '2': 'fish', 'pêcher': 'fish', 'pecher': 'fish', 'fish': 'fish',
-        '3': 'search_water', 'eau': 'search_water', 'chercher': 'search_water', 'search_water': 'search_water',
-        '4': 'sleep', 'dormir': 'sleep', 'sleep': 'sleep',
-        '5': 'explore', 'explorer': 'explore', 'explore': 'explore',
-        'm': 'menu', 'menu': 'menu'
+        '1': 'Chasser', 'chasser': 'Chasser', 'hunt': 'Chasser',
+        '2': 'Pêcher', 'pêcher': 'Pêcher', 'pecher': 'Pêcher', 'fish': 'Pêcher',
+        '3': "Chercher de l'Eau", 'eau': "Chercher de l'Eau", 'chercher': "Chercher de l'Eau", 'search_water': "Chercher de l'Eau",
+        '4': 'Dormir', 'dormir': 'Dormir', 'sleep': 'Dormir',
+        '5': 'Explorer', 'explorer': 'Explorer', 'explore': 'Explorer',
+        'm': 'Menu Principal', 'menu': 'Menu Principal', 'menu principal': 'Menu Principal', 'main menu': 'Menu Principal'
     }
-    if action not in map:
+    if action in map:
+        action = map[action]
+    elif action == '':
+        action = "Rien"
+        print("\nAucune action saisie. Veuillez réessayer.")
+    elif action not in map and not action == '':
         print("\nAction invalide. Veuillez réessayer.")
     return map.get(action, action)
     
 def process_action(game, action):
-    if action == "hunt":
+    print(f"\n  ACTION REALISEE: {action}")
+    if action == "Chasser":
         game.player.hunt()
-        print("Vous avez chassé pour vous nourrir.")
-    elif action == "fish":
+    elif action == "Pêcher":
         game.player.fish()
-        print("Vous avez pêché pour vous nourrir.")
-    elif action == "search_water":
+    elif action == "Chercher de l'Eau":
         game.player.search_water()
-        print("Vous avez cherché de l'eau.")
-    elif action == "sleep":
+    elif action == "Dormir":
         game.player.sleep()
-        print("Vous vous êtes reposé.")
-    elif action == "explore":
+    elif action == "Explorer":
         game.player.explore()
-        print("Vous avez exploré les environs.")
 
-    elif action == "menu":
+    elif action == "Menu Principal":
         display_main_menu(game)
 
-    else:
-        print("Action invalide. Aucun effet pour ce tour.")
+    elif action == "Bouh le Nul ! Il s'est foiré":
+        print("HAHAHAHAHAHAHA! Tu as foiré ton action en beauté ! Bravo champion !")
+    elif action == "Rien":
+        print("Aucun effet pour ce tour.")

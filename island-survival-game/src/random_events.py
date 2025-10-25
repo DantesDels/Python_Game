@@ -25,8 +25,7 @@ def trigger_random_event(game):
     for event in events:
         try:
             if roll <= event["chance"]:
-                utils.clear_screen()
-                print(f"Événement aléatoire : {event['description']}\n")
+                print(f"\nEVENT : {event['description']}\n")
                 apply_effect(game.player, event["effect"])
                 break
         except Exception as e:

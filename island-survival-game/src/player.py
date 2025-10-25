@@ -33,25 +33,25 @@ class Player:
         return player_difficulties.get(difficulty, player_difficulties["Baby"])
 
     def hunt(self):
-        action = "Tu as chassé avec succès !\n - La faim diminue -"
+        action = "\nTu as chassé avec succès !\n - La faim diminue -"
         self.hunger.decrease(self.amount_per_tour)
         self.energy.decrease(self.energy_cost)
         return print(action)
 
     def fish(self):
-        action = "Tu as pêché avec succès !\n - La faim diminue -"
+        action = "\nTu as pêché avec succès !\n - La faim diminue -"
         self.hunger.decrease(self.amount_per_tour)
         self.energy.decrease(self.energy_cost)
         return print(action)
 
     def search_water(self):
-        action = "Tu as cherché de l'eau avec succès !\n - La soif diminue -"
+        action = "\nTu as cherché de l'eau avec succès !\n - La soif diminue -"
         self.thirst.decrease(self.amount_per_tour)
         self.energy.decrease(self.energy_cost)
         return print(action)
 
     def sleep(self):
-        action = "Tu as bien dormi !\n - L'énergie augmente -"
+        action = "\nTu as bien dormi !\n - L'énergie augmente -"
         self.energy.increase(self.energy_cost)
         self.hunger.decrease(self.amount_per_tour)
         self.thirst.decrease(self.amount_per_tour)
@@ -59,7 +59,7 @@ class Player:
 
     def explore(self):
         roll = random.randint(1, 100)
-        print(f"Exploration roll: {roll}")
+        print(f"\nExploration roll: {roll}")
         if roll <= 10:
             action = "Tu as trouvé de la nourriture !\n - La faim diminue -"
             self.hunger.decrease(self.amount_per_tour)

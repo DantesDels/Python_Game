@@ -16,7 +16,7 @@ class Game:
     def start(self, from_load=False):
     #   utils.full_screen()
         utils.clear_screen()
-
+        
         if not from_load:
             print("=== Jeu de Survie sur l'Île ===\n")
             print("Menu - Accès au Menu Principal\n")
@@ -39,25 +39,20 @@ class Game:
             for i in range(1, self.player.days_survived + 1):
                 self.daily_mult *= (1 + difficulty_settings["growth_rate"])
             print(f"Chargement de la partie...\n")
-
+        
         while not self.is_game_over and self.day <= difficulty_settings["days_left"]:
-            utils.clear_screen()
             print(f"--- Jour {self.day} ---\n")
             self.display_status()
-            print("\n1 - Check")
-            get_player_action()
-            print("\n1.5 - se réalise une fois sur deux ?")
             action = get_player_action()
-            print("\2 - ne se réalise jamais ?")
             process_action(self, action)
-            print("\n3 - Action jamais atteinte.")
             # end of day automatic updates
             self.end_day(difficulty_settings["growth_rate"])
-            print("--- Fin de la Journée ---\n")
-            #random_events.trigger_random_event(self)
+            random_events.trigger_random_event(self)
             print(f"Jour {self.day} terminé.\n")
             self.day += 1
             self.check_game_over()
+            input("Appuyez sur une touche pour continuer...\n")
+            utils.clear_screen()
         print(f"Partie terminée après {self.player.days_survived} jours.\n")
         
         if not self.is_game_over:
@@ -65,7 +60,7 @@ class Game:
             input("Appuyez sur une touche pour continuer...")
 
     def display_status(self):
-        print(f"{self.player.name}")
+        print(f"{self.player.name}\n")
         print(self.player.hunger)
         print(self.player.thirst)
         print(self.player.energy)
