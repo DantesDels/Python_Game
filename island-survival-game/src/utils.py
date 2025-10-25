@@ -30,9 +30,9 @@ def go_to_menu(self):
         clear_screen()
         print("Retour au jeu...")
     else:
-        self.clear_screen()
+        clear_screen()
         print("Choix invalide. Veuillez réessayer.")
-        self.go_to_menu()
+        go_to_menu(self)
 
 def quit_game(self):
     confirm = input("\nÊtes-vous sûr de vouloir quitter le jeu ? (o/n) : ")

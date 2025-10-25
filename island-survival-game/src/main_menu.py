@@ -26,18 +26,15 @@ def display_main_menu(game):
     elif choice == '1':
         print("Démarrage d'une nouvelle partie...\n")
         game.reset_game()
-        # Initialiser un nouvel objet de jeu ici
     elif choice == '2':
         print("Reprise de la dernière partie sauvegardée...\n")
-        # Continuer la partie en cours
+        game.start()
     elif choice == '3':
         print("Sauvegarde de la partie en cours...\n")
         to_save(game)
-        # Sauvegarder la partie en cours
     elif choice == '4':
         print("Chargement d'une partie sauvegardée...\n")
         to_load(game)
-        # Charger une partie spécifique
     elif choice == '5':
         utils.quit_game(game)
     return choice

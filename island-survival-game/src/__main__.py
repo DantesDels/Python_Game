@@ -4,7 +4,7 @@ from game import Game
 def main():
     player = Player("Survivant")
     game = Game(player)
-    game.start_game()
+    game.start()
     
 
 if __name__ == "__main__":

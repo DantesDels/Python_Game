@@ -11,7 +11,7 @@ class Game:
         self.day = 1
         self.is_game_over = False
         
-    def start_game(self, from_load=False):
+    def start(self, from_load=False):
     #   utils.full_screen()
         utils.clear_screen()
         

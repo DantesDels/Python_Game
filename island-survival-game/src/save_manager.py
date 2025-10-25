@@ -3,7 +3,9 @@ import json
 import os
 import re
 import main_menu
+import player
 from datetime import datetime
+
 
 SAVES_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'saves'))
 TIMESTAMP_PATTERN = re.compile(r'^\d{8}_\d{6}\.json$')  # 20251019_142530.json
@@ -12,14 +14,14 @@ def ensure_saves_dir():
     if not os.path.exists(SAVES_DIR):
         os.makedirs(SAVES_DIR, exist_ok=True)
 
-def save_game(game):
+def to_save(game):
     utils.clear_screen()
     ensure_saves_dir()
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"{timestamp}.json"
     filepath = os.path.join(SAVES_DIR, filename)
-    
-    print(f"{game.player.name} | {game.player.days_survived} | {game.player.hunger} | {game.player.thirst} | {game.player.energy} - Saving game...")
+
+    print(f"Partie actuelle :\n\nJoueur : {game.player.name}\nJours survécus : {game.player.days_survived}\n{game.player.hunger}\n{game.player.thirst}\n{game.player.energy}\n\n")
 
     player = game.player
     
@@ -41,13 +43,9 @@ def save_game(game):
         json.dump(saved_data, save_file)
         
     print(f"Partie sauvegardée : {timestamp}\n\n")
-    print(f"Appuyez sur une touche pour revenir à la partie...")
+    print(f"Appuyez sur une touche pour revenir au Menu Principal...")
     input()
-    return saved_data
-    
-    
-def to_save(game):
-    save_game(game)
+    return main_menu.display_main_menu(game)
 
 def to_load(game):
     ensure_saves_dir()
@@ -82,7 +80,7 @@ def to_load(game):
         selected_save = saves[int(choice) - 1]
         print(f"Sauvegarde chargée : {selected_save['save_name']}\n")
         player_data = selected_save['player']
-        game.player = Player(
+        game.player = player.Player(
             name=player_data['name'],
             difficulty=selected_save['game']['difficulty'],
             hunger=player_data['hunger'],
