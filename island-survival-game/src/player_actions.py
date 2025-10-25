@@ -2,8 +2,8 @@ import utils
 from save_manager import to_save, to_load
 
 def get_player_action():
-    action = input("Choisissez une action :\n 1 - Pêcher\n 2 - Chercher de l'Eau\n 3 - Dormir\n 4 - Explorer\n\n S - Sauvegarder la Partie\n C - Charger une Partie\n Q - Quitter\n\n  Votre choix : ")
-    # map french/english inputs
+    print("\nActions disponibles :\n 1 - Chasser\n 2 - Pêcher\n 3 - Chercher de l'Eau\n 4 - Dormir\n 5 - Explorer\n M - Menu Principal")
+    action = input("\n\n  Votre choix : ")
     action = action.strip().lower()
     map = {
         '1': 'fish', 'pêcher': 'fish', 'pecher': 'fish', 'fish': 'fish',
