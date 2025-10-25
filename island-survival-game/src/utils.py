@@ -23,13 +23,27 @@ def get_json_data(file_path):
     return data
 
 def go_to_menu(self):
-    menu_input = input("Voulez-vous retourner au menu principal ? (o/n) : ")
+    menu_input = input("\nVoulez-vous accéder au menu principal ? (o/n) : ")
     if menu_input.strip().lower() in ['o', 'oui', 'y', 'yes']:
-        display_main_menu()
+        display_main_menu(self)
     elif menu_input.strip().lower() in ['n', 'non', 'no']:
-        self.clear_screen()
+        clear_screen()
         print("Retour au jeu...")
     else:
         self.clear_screen()
         print("Choix invalide. Veuillez réessayer.")
         self.go_to_menu()
+
+def quit_game(self):
+    confirm = input("\nÊtes-vous sûr de vouloir quitter le jeu ? (o/n) : ")
+    if confirm.strip().lower() in ['o', 'oui', 'y', 'yes']:
+        clear_screen()
+        print("Merci d'avoir joué ! À bientôt.\n\n")
+        exit()
+    elif confirm.strip().lower() in ['n', 'non', 'no']:
+        clear_screen()
+        print("Retour au jeu...")
+    else:
+        clear_screen()
+        print("Choix invalide. Veuillez réessayer.")
+        quit_game(self)

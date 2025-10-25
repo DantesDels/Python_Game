@@ -17,7 +17,10 @@ class Game:
         
         if not from_load:
             print("=== Jeu de Survie sur l'Île ===\n")
+            print("Menu - Accès au Menu Principal\n")
             self.player.name = input("Entrez le nom de votre personnage : ")
+            if self.player.name.strip().lower() == "menu":
+                return utils.go_to_menu(self)
             utils.clear_screen()
 
             print(f"Bienvenue à toi {self.player.name} !\n")
@@ -89,8 +92,7 @@ class Game:
             self.clear_game()
             self.start_game()
         elif choice == "2":
-            print("Merci d'avoir joué !")
-            exit()
+            utils.quit_game(self)
         else:
             print("Choix invalide.")
             self.reset_game()

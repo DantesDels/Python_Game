@@ -25,6 +25,7 @@ def display_main_menu(game):
         return display_main_menu(game)
     elif choice == '1':
         print("Démarrage d'une nouvelle partie...\n")
+        game.reset_game()
         # Initialiser un nouvel objet de jeu ici
     elif choice == '2':
         print("Reprise de la dernière partie sauvegardée...\n")
@@ -38,7 +39,5 @@ def display_main_menu(game):
         to_load(game)
         # Charger une partie spécifique
     elif choice == '5':
-        utils.clear_screen()
-        print("Merci d'avoir joué ! À bientôt.\n\n")
-        exit()
+        utils.quit_game(game)
     return choice
