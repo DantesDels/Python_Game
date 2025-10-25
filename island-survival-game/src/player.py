@@ -33,41 +33,51 @@ class Player:
         return player_difficulties.get(difficulty, player_difficulties["Baby"])
 
     def hunt(self):
-        self.hunger.increase(self.amount_per_tour)
-        self.energy.decrease(self.energy_cost)
-
-    def fish(self):
+        action = "Tu as chassé avec succès !\n - La faim diminue -"
         self.hunger.decrease(self.amount_per_tour)
         self.energy.decrease(self.energy_cost)
+        return print(action)
+
+    def fish(self):
+        action = "Tu as pêché avec succès !\n - La faim diminue -"
+        self.hunger.decrease(self.amount_per_tour)
+        self.energy.decrease(self.energy_cost)
+        return print(action)
 
     def search_water(self):
+        action = "Tu as cherché de l'eau avec succès !\n - La soif diminue -"
         self.thirst.decrease(self.amount_per_tour)
         self.energy.decrease(self.energy_cost)
+        return print(action)
 
     def sleep(self):
+        action = "Tu as bien dormi !\n - L'énergie augmente -"
         self.energy.increase(self.energy_cost)
         self.hunger.decrease(self.amount_per_tour)
         self.thirst.decrease(self.amount_per_tour)
+        return print(action)
 
     def explore(self):
         roll = random.randint(1, 100)
+        print(f"Exploration roll: {roll}")
         if roll <= 10:
-            print("Tu as trouvé de la nourriture ! La faim diminue.")
-            self.hunger = max(0, self.hunger.decrease(self.amount_per_tour))
-            self.energy = max(0, self.energy.decrease(self.energy_cost))
+            action = "Tu as trouvé de la nourriture !\n - La faim diminue -"
+            self.hunger.decrease(self.amount_per_tour)
+            self.energy.decrease(self.energy_cost)
 
         elif roll <= 20:
-            print("Tu as trouvé de l'eau potable ! La soif diminue.")
-            self.thirst = max(0, self.thirst.decrease(self.amount_per_tour))
-            self.energy = max(0, self.energy.decrease(self.energy_cost))
+            action = "Tu as trouvé de l'eau potable !\n - La soif diminue -"
+            self.thirst.decrease(self.amount_per_tour)
+            self.energy.decrease(self.energy_cost)
 
         elif roll <= 40:
-            print("Rencontre dangereuse — vous avez été blessé. Énergie réduite.")
-            self.hunger = max(0, self.hunger.increase(self.amount_per_tour))
-            self.thirst = max(0, self.thirst.increase(self.amount_per_tour))
-            self.energy = max(0, self.energy.decrease(self.energy_cost))
+            action = "Rencontre dangereuse — vous avez été blessé !\n - Énergie réduite -"
+            self.hunger.increase(self.amount_per_tour)
+            self.thirst.increase(self.amount_per_tour)
+            self.energy.decrease(self.energy_cost)
         else:
-            print("Tu as eu la Flemme d'explorer — Rien ne s'est passé.")
+            action = "Tu as eu la Flemme d'explorer — Rien ne s'est passé."
+        return print(action)
 
     def is_alive(self):
         return not (self.hunger.is_critical() or self.thirst.is_critical() or self.energy.is_critical())
