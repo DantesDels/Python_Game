@@ -1,8 +1,8 @@
+from datetime import datetime
 import random
 import os
 import json
 from main_menu import display_main_menu
-
 
 def generate_random_number(min_value, max_value):
     return random.randint(min_value, max_value)
@@ -49,3 +49,16 @@ def quit_game(self):
         clear_screen()
         print("Choix invalide. Veuillez réessayer.")
         quit_game(self)
+
+def ensure_dir(directory_name):
+    directory = os.path.join(os.path.dirname(__file__), '..', directory_name)
+    if not os.path.exists(directory):
+        os.makedirs(directory, exist_ok=True)
+
+def log_error(message):
+    print(f"ERROR DETECTED: {message}\n")
+    ensure_dir('logs')
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    filepath = os.path.join(os.path.dirname(__file__), '..', 'logs', 'error_log.txt')
+    with open(filepath, 'w', encoding='utf-8') as log_file:
+        log_file.write(f"{timestamp} - {message}\n")

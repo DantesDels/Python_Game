@@ -6,17 +6,12 @@ import main_menu
 import player
 from datetime import datetime
 
-
 SAVES_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'saves'))
 TIMESTAMP_PATTERN = re.compile(r'^\d{8}_\d{6}\.json$')  # 20251019_142530.json
 
-def ensure_saves_dir():
-    if not os.path.exists(SAVES_DIR):
-        os.makedirs(SAVES_DIR, exist_ok=True)
-
 def to_save(game):
     utils.clear_screen()
-    ensure_saves_dir()
+    utils.ensure_dir('saves')
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"{timestamp}.json"
     filepath = os.path.join(SAVES_DIR, filename)
@@ -48,7 +43,7 @@ def to_save(game):
     return main_menu.display_main_menu(game)
 
 def to_load(game):
-    ensure_saves_dir()
+    utils.ensure_dir('saves')
     save_files = [f for f in os.listdir(SAVES_DIR) if TIMESTAMP_PATTERN.match(f)]
     if not save_files:
         print("Aucune sauvegarde trouvée.")
@@ -89,4 +84,4 @@ def to_load(game):
             days_survived=player_data['days_survived']
         )
         game.selected_difficulty = selected_save['game']['difficulty']
-        game.start_game(from_load=True)
+        game.start(from_load=True)

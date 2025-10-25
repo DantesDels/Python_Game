@@ -1,0 +1,59 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "name": "Tempête soudaine",
+      "Ascii_art": "", 
+      "description": "Une tempête soudaine éclate, vous obligeant à chercher un abri. Vous perdez de l'énergie en vous abritant.",
+      "effect": {
+        "type": "energy_decrease",
+        "magnitude": 15
+      },
+      "chance": 20
+    },
+    {
+      "id": 2,
+      "name": "Source d'eau fraîche",
+      "Ascii_art": "",
+      "description": "Vous trouvez une source d'eau fraîche en explorant. Votre soif diminue.",
+      "effect": {
+        "type": "thirst_decrease",
+        "magnitude": 20
+      },
+      "chance": 15
+    },
+    {
+      "id": 3,
+      "name": "Baies comestibles",
+      "Ascii_art": "",
+      "description": "Vous tombez sur un buisson de baies comestibles. Votre faim diminue.",
+      "effect": {
+        "type": "hunger_decrease",
+        "magnitude": 25
+      },
+      "chance": 15
+    },
+    {
+      "id": 4,
+      "name": "Blessure légère",
+      "Ascii_art": "",
+      "description": "Vous vous blessez légèrement en explorant. Votre énergie diminue.",
+      "effect": {
+        "type": "energy_decrease",
+        "magnitude": 10
+      },
+      "chance": 10
+    },
+    {
+      "id": 5,
+      "name": "Repos paisible",
+      "Ascii_art": "",
+      "description": "Vous découvrez un endroit paisible pour vous reposer. Votre énergie augmente.",
+      "effect": {
+        "type": "energy_increase",
+        "magnitude": 20
+      },
+      "chance": 10
+    }
+  ]
+}

@@ -1,8 +1,10 @@
 import utils
+import main_menu
 from player import Player
 from difficulty_manager import difficulty_manager
 from difficulty_manager import difficulty_manager, select_difficulty
 from player_actions import get_player_action, process_action
+import random_events
 
 class Game:
  
@@ -20,7 +22,7 @@ class Game:
             print("Menu - Accès au Menu Principal\n")
             self.player.name = input("Entrez le nom de votre personnage : ")
             if self.player.name.strip().lower() == "menu":
-                return utils.go_to_menu(self)
+                return main_menu.display_main_menu(self)
             utils.clear_screen()
 
             print(f"Bienvenue à toi {self.player.name} !\n")
@@ -61,6 +63,7 @@ class Game:
     def end_day(self, growth_rate):
         self.player.days_survived += 1
         self.daily_mult *= (1 + growth_rate)
+        random_events.trigger_random_event(self)
         # natural deterioration per day
         self.player.hunger.increase(self.daily_mult)
         self.player.thirst.increase(self.daily_mult)
@@ -80,6 +83,7 @@ class Game:
         self.is_game_over = False
 
     def reset_game(self):
+        utils.clear_screen()
         print("Voulez-vous recommencer une partie ?\n 1 - Oui\n 2 - Non\n")
         choice = input("Votre choix : ")
         choice = choice.strip().lower()
@@ -90,7 +94,7 @@ class Game:
         choice = map.get(choice, choice)
         if choice == "1":
             self.clear_game()
-            self.start_game()
+            self.start()
         elif choice == "2":
             utils.quit_game(self)
         else:
