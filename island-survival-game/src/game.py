@@ -53,6 +53,7 @@ class Game:
         
         if not self.is_game_over:
             print("Félicitations ! Vous avez survécu jusqu'à la fin du défi !")
+            input("Appuyez sur une touche pour continuer...")
 
     def display_status(self):
         print(f"{self.player.name} | Jour {self.day}")
@@ -72,9 +73,9 @@ class Game:
     def check_game_over(self):
         if not self.player.is_alive():
             self.is_game_over = True
-            print("Game Over! Vous n'avez pas survécu. \n")
+            print("- GAME OVER -\n")
             self.display_status()
-            print(f"Vous avez survécu pendant {self.player.days_survived} jours.\n")
+            print(f"\nCause : {self.player.cause_of_death()}\nVous avez survécu pendant {self.player.days_survived} jours.\n")
             self.reset_game()
 
     def clear_game(self):
@@ -83,7 +84,6 @@ class Game:
         self.is_game_over = False
 
     def reset_game(self):
-        utils.clear_screen()
         print("Voulez-vous recommencer une partie ?\n 1 - Oui\n 2 - Non\n")
         choice = input("Votre choix : ")
         choice = choice.strip().lower()

@@ -72,6 +72,15 @@ class Player:
     def is_alive(self):
         return not (self.hunger.is_critical() or self.thirst.is_critical() or self.energy.is_critical())
     
+    def cause_of_death(self):
+        if self.hunger.is_critical():
+            return "Mort de faim"
+        elif self.thirst.is_critical():
+            return "Mort de soif"
+        elif self.energy.is_critical():
+            return "Mort d'épuisement"
+        return "Inconnu"
+    
     def reset(self):
         self.hunger = Gauge("Hunger", initial_value=20, critical_value=100)
         self.thirst = Gauge("Thirst", initial_value=20, critical_value=100)
