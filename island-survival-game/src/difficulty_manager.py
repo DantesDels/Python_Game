@@ -1,10 +1,8 @@
-from player import Player
-import json
+from email import utils
+from utils import get_json_data
 
 def difficulty_manager(difficulty_level):
-    difficulty = open('../res/difficulty_world.json', 'r', encoding='utf-8')
-    difficulty_data = json.load(difficulty)
-    difficulty.close()
+    difficulty_data = get_json_data('../res/difficulty_world.json')
     return difficulty_data.get(difficulty_level, difficulty_data["Baby"])
 
 def select_difficulty():
@@ -20,6 +18,7 @@ def select_difficulty():
         }
         
     while selected_difficulty not in difficulty_map:
+        utils.clear_screen()
         print("Difficulté invalide. Réessayer !\n")
         selected_difficulty = input("Selectionnez une difficulté :\n 1 - Baby\n 2 - Easy\n 3 - Medium\n 4 - Hard\n 5 - Hardcore\n 6 - Nightmare\n\n  Votre choix : ")
         selected_difficulty = selected_difficulty.strip().lower()
