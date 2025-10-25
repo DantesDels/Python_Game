@@ -29,6 +29,7 @@ def go_to_menu(self):
     elif menu_input.strip().lower() in ['n', 'non', 'no']:
         clear_screen()
         print("Retour au jeu...")
+        self.start()
     else:
         clear_screen()
         print("Choix invalide. Veuillez réessayer.")
