@@ -44,6 +44,7 @@ def quit_game(self):
     elif confirm.strip().lower() in ['n', 'non', 'no']:
         clear_screen()
         print("Retour au jeu...")
+        self.start()
     else:
         clear_screen()
         print("Choix invalide. Veuillez réessayer.")
