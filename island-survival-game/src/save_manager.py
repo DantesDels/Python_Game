@@ -54,7 +54,8 @@ def to_load(game):
     save_files = [f for f in os.listdir(SAVES_DIR) if TIMESTAMP_PATTERN.match(f)]
     if not save_files:
         print("Aucune sauvegarde trouvée.")
-        return None
+        input("\nAppuyez sur une touche pour revenir au menu principal...")
+        return main_menu.display_main_menu(game)
 
     save_files.sort(reverse=True) # latest save comes first
     
