@@ -7,7 +7,7 @@
       "description": "Rien de particulier ne s'est passé aujourd'hui.",
       "effect": {
         "type": "energy_decrease",
-        "magnitude": 10
+        "cost": 10
       },
       "chance": 50
     },
@@ -18,7 +18,7 @@
       "description": "Une tempête soudaine éclate, vous obligeant à chercher un abri. Vous perdez de l'énergie en vous abritant.",
       "effect": {
         "type": "energy_decrease",
-        "magnitude": 15
+        "cost": 15
       },
       "chance": 60
     },
@@ -29,7 +29,7 @@
       "description": "Vous trouvez une source d'eau fraîche en explorant. Votre soif diminue.",
       "effect": {
         "type": "thirst_decrease",
-        "magnitude": 20
+        "cost": 20
       },
       "chance": 70
     },
@@ -40,7 +40,7 @@
       "description": "Vous tombez sur un buisson de baies comestibles. Votre faim diminue.",
       "effect": {
         "type": "hunger_decrease",
-        "magnitude": 25
+        "cost": 25
       },
       "chance": 80
     },
@@ -51,7 +51,7 @@
       "description": "Vous vous blessez légèrement en explorant. Votre énergie diminue.",
       "effect": {
         "type": "energy_decrease",
-        "magnitude": 10
+        "cost": 10
       },
       "chance": 90
     },
@@ -62,7 +62,7 @@
       "description": "Vous découvrez un endroit paisible pour vous reposer. Votre énergie augmente.",
       "effect": {
         "type": "energy_increase",
-        "magnitude": 20
+        "cost": 20
       },
       "chance": 100
     }
