@@ -1,10 +1,14 @@
-def display_main_menu():
-    print(" === MENU PRINCIPAL ===\n\n")
-    print("  1. Nouvelle Partie")
-    print("  2. Continuer")
-    print("  3. Sauvegarder la Partie")
-    print("  4. Charger une Partie")
-    print("  5. Quitter")
+import utils
+from save_manager import to_save, to_load
+
+def display_main_menu(game):
+    utils.clear_screen()
+    print(" === MENU PRINCIPAL ===\n")
+    print("  1. Nouvelle Partie \n")
+    print("  2. Continuer \n")
+    print("  3. Sauvegarder la Partie \n")
+    print("  4. Charger une Partie \n")
+    print("  5. Quitter \n\n")
 
     choice = input("Sélectionnez une option : ")
     choice = choice.strip().lower()
@@ -27,11 +31,14 @@ def display_main_menu():
         # Continuer la partie en cours
     elif choice == '3':
         print("Sauvegarde de la partie en cours...\n")
+        to_save(game)
         # Sauvegarder la partie en cours
     elif choice == '4':
         print("Chargement d'une partie sauvegardée...\n")
+        to_load(game)
         # Charger une partie spécifique
     elif choice == '5':
+        utils.clear_screen()
         print("Merci d'avoir joué ! À bientôt.")
         exit()
     return choice

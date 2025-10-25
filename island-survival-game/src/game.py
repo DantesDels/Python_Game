@@ -1,6 +1,6 @@
 import utils
-from difficulty_manager import difficulty_manager
 from player import Player
+from difficulty_manager import difficulty_manager
 from difficulty_manager import difficulty_manager, select_difficulty
 from player_actions import get_player_action, process_action
 

@@ -2,7 +2,6 @@ import json
 import os
 import re
 from datetime import datetime
-from player import Player
 
 SAVES_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'saves'))
 TIMESTAMP_PATTERN = re.compile(r'^\d{8}_\d{6}\.json$')  # 20251019_142530.json
