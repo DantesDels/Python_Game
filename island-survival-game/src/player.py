@@ -1,3 +1,4 @@
+from random import random
 from gauges import Gauge
 from  utils import get_json_data
 from difficulty_manager import difficulty_manager
@@ -9,8 +10,9 @@ class Player:
         # starting player values
         INITIAL_VALUES = self.get_player_difficulty(difficulty)
         # world constants
-        WORLD_DIFFICULTY = self.difficulty_manager(difficulty)
+        WORLD_DIFFICULTY = difficulty_manager(difficulty)
         DIFFICULTY_INCREASE = WORLD_DIFFICULTY["daily_mult"] * WORLD_DIFFICULTY["growth_rate"]
+        # adjusted values based on difficulty
         self.amount_per_tour = WORLD_DIFFICULTY["amount_per_tour"] + DIFFICULTY_INCREASE
         self.energy_cost = WORLD_DIFFICULTY["energy_cost"] + DIFFICULTY_INCREASE
 
@@ -51,7 +53,6 @@ class Player:
 
     def explore(self):
         # simple random event: small chance to find resources or get hurt
-        import random
         roll = random.randint(1, 100)
         if roll <= 10:
             print("Tu as trouvé de la nourriture ! La faim diminue.")

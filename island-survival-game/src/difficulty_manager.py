@@ -1,4 +1,3 @@
-from player import Player
 from utils import get_json_data
 
 def difficulty_manager(difficulty_level):
