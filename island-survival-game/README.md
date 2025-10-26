@@ -1,5 +1,6 @@
 # Island Survival Game 🏝️
-*Dernière mise à jour : Octobre 2025*
+*Dernière mise à jour : fin Octobre 2025*
+
 Un jeu de survie en mode texte où vous devez survivre le plus longtemps possible sur une île déserte en gérant votre faim, votre soif et votre énergie.
 
 ## 📋 Table des matières
@@ -370,7 +371,14 @@ src/
 
 **Avant :**
 ```
-Survivant — Hunger: 45, Thirst: 30, Energy: 65, Days: 12
+--- Jour 3 ---
+
+Dantes
+
+|████████████████----| 80/100 - Hunger
+|█-------------------| 8/100 - Thirst
+|██------------------| 14/100 - Energy
+
 ```
 
 **Après :**

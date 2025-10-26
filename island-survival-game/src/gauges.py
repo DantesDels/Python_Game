@@ -19,5 +19,5 @@ class Gauge:
     
     def __str__(self):
         filled_length = int(self.value / self.MAX_VALUE * 20)
-        bar = '█' * filled_length + '-' * (20 - filled_length)
-        return f"|{bar}| {self.value}/{self.MAX_VALUE} - {self.name}"
+        bar = '█' * filled_length + '░' * (20 - filled_length)
+        return f"[{bar}] {self.value}/{self.MAX_VALUE} - {self.name}"

@@ -12,8 +12,14 @@ class Game:
         self.player : Player = player
         self.day = 1
         self.is_game_over = False
-        
+
     def start(self, from_load=False):
+        """Start or resume the game loop
+        Args:
+            from_load (bool): Indicates if the game is being loaded from a saved state
+        Returns:
+            None
+        """
     #   utils.full_screen()
         utils.clear_screen()
         
