@@ -50,31 +50,31 @@ class Player:
 
     def sleep(self):
         action = "\nTu as bien dormi !\n - L'énergie augmente -"
-        self.energy.increase(self.energy_cost)
-        self.hunger.decrease(self.amount_per_tour)
-        self.thirst.decrease(self.amount_per_tour)
+        self.energy.increase(self.energy_cost * 1.5)
+        self.hunger.increase(self.amount_per_tour * 2)
+        self.thirst.increase(self.amount_per_tour * 2)
         return print(action)
 
     def explore(self):
         roll = random.randint(1, 100)
         print(f"\nExploration roll: {roll}")
         if roll <= 10:
-            action = "Tu as trouvé de la nourriture !\n - La faim diminue -"
+            action = "Tu as trouvé de la nourriture !\n - La faim diminue -\n"
             self.hunger.decrease(self.amount_per_tour)
             self.energy.decrease(self.energy_cost)
 
         elif roll <= 20:
-            action = "Tu as trouvé de l'eau potable !\n - La soif diminue -"
+            action = "Tu as trouvé de l'eau potable !\n - La soif diminue -\n"
             self.thirst.decrease(self.amount_per_tour)
             self.energy.decrease(self.energy_cost)
 
         elif roll <= 40:
-            action = "Rencontre dangereuse — vous avez été blessé !\n - Énergie réduite -"
+            action = "Rencontre dangereuse — vous avez été blessé !\n - Énergie réduite -\n"
             self.hunger.increase(self.amount_per_tour)
             self.thirst.increase(self.amount_per_tour)
             self.energy.decrease(self.energy_cost)
         else:
-            action = "Tu as eu la Flemme d'explorer — Rien ne s'est passé."
+            action = "Tu as eu la Flemme d'explorer — Rien ne s'est passé.\n"
         return print(action)
 
     def is_alive(self):

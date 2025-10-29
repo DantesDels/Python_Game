@@ -14,31 +14,31 @@
     "energy_cost": 7
   },
   "Normal": {
-    "days_left": 28,
+    "days_left": 15,
     "daily_mult": 0.9,
     "growth_rate": 0.08,
     "amount_per_tour": 10,
     "energy_cost": 8
   },
   "Difficult": {
-    "days_left": 30,
+    "days_left": 15,
     "daily_mult": 1.0,
     "growth_rate": 0.10,
     "amount_per_tour": 8,
     "energy_cost": 10
   },
   "Hardcore": {
-    "days_left": 31,
+    "days_left": 28,
     "daily_mult": 1.1,
     "growth_rate": 0.14,
     "amount_per_tour": 7,
     "energy_cost": 12
   },
   "Nightmare": {
-    "days_left": 5,
+    "days_left": 31,
     "daily_mult": 1.2,
-    "growth_rate": 1.18,
-    "amount_per_tour": 80,
-    "energy_cost": 0.01
+    "growth_rate": 0.18,
+    "amount_per_tour": 6,
+    "energy_cost": 14
   }
 }

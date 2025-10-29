@@ -26,7 +26,7 @@ def get_player_action():
     return map.get(action, action)
     
 def process_action(game, action):
-    print(f"\n  ACTION REALISEE: {action}")
+    print(f"  ACTION REALISEE: {action}")
     if action == "Chasser":
         game.player.hunt()
     elif action == "Pêcher":

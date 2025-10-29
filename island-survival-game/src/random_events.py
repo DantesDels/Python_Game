@@ -44,7 +44,7 @@ def trigger_random_event(game):
     for event in events:
         try:
             if roll <= event["chance"]:
-                print(f"\nEVENT : {event['description']}\n")
+                print(f"\n  RANDOM EVENT :\n{event['description']}\n")
                 apply_effect(game.player, event["effect"])
                 break
         except Exception as e:
