@@ -6,10 +6,11 @@
       "Ascii_art": "", 
       "description": "Rien de particulier ne s'est passé aujourd'hui.",
       "effect": {
-        "type": "energy_decrease",
+        "type": "energy_decrease", 
+        "type2": "thirst_decrease",
         "cost": 10
       },
-      "chance": 50
+      "chance": 0
     },
     {
       "id": 1,
@@ -20,7 +21,7 @@
         "type": "energy_decrease",
         "cost": 15
       },
-      "chance": 60
+      "chance": 0
     },
     {
       "id": 2,
@@ -31,7 +32,7 @@
         "type": "thirst_decrease",
         "cost": 20
       },
-      "chance": 70
+      "chance": 0
     },
     {
       "id": 3,
@@ -42,7 +43,7 @@
         "type": "hunger_decrease",
         "cost": 25
       },
-      "chance": 80
+      "chance": 0
     },
     {
       "id": 4,
@@ -53,7 +54,7 @@
         "type": "energy_decrease",
         "cost": 10
       },
-      "chance": 90
+      "chance": 0
     },
     {
       "id": 5,
@@ -63,6 +64,17 @@
       "effect": {
         "type": "energy_increase",
         "cost": 20
+      },
+      "chance": 0
+    },
+    {
+      "id": 6,
+      "name": "Rencontre avec un animal",
+      "Ascii_art": "",
+      "description": "Une rencontre inattendue avec un animal sauvage.\n - Votre énergie diminue en raison du stress !",
+      "effect": {
+        "type": "player_choice",
+        "cost": 10
       },
       "chance": 100
     }

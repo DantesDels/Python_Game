@@ -6,15 +6,13 @@ from difficulty_manager import difficulty_manager
 class Player:
 
     def __init__(self, name, difficulty="Baby", hunger=None, thirst=None, energy=None, days_survived=0):
-        self.name = name
-        # starting player values
         INITIAL_VALUES = self.get_player_difficulty(difficulty)
-        # world constants
         WORLD_DIFFICULTY = difficulty_manager(difficulty)
-        DIFFICULTY_INCREASE = WORLD_DIFFICULTY["daily_mult"] * WORLD_DIFFICULTY["growth_rate"]
-        # adjusted values based on difficulty
-        self.amount_per_tour = WORLD_DIFFICULTY["amount_per_tour"] + DIFFICULTY_INCREASE
+        DIFFICULTY_INCREASE = WORLD_DIFFICULTY["daily_mult"] + WORLD_DIFFICULTY["growth_rate"]
+        self.amount_per_tour = WORLD_DIFFICULTY["amount_per_tour"] * DIFFICULTY_INCREASE
         self.energy_cost = WORLD_DIFFICULTY["energy_cost"] + DIFFICULTY_INCREASE
+
+        self.name = name
 
         self.hunger = Gauge("Hunger", initial_value=hunger if hunger is not None
                             else INITIAL_VALUES["hunger"], critical_value=100)
