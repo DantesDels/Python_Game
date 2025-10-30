@@ -700,6 +700,7 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails,
 ## 👥 Auteurs
 
 - **DantesDels** - *Développeur principal* - [Lien GitHub](https://github.com/dantesdels)
+- **Trello du projet** - [Lien Trello](https://trello.com/invite/b/68f286037d30a562b2461a74/ATTIcec4042ceb1d15ef8238d36acf382924FA7C8BD4/python-game)
 
 ## 🙏 Remerciements
 
