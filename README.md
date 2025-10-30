@@ -100,21 +100,47 @@ island-survival-game/
 
 ### Niveaux disponibles
 
-| Niveau | Détérioration | Coût énergie | Jours limite | Croissance |
-|--------|--------------|--------------|--------------|------------|
-| Baby | 0.5 | 5 | 100 | 0.01 |
-| Easy | 1.0 | 7 | 75 | 0.02 |
-| Medium | 1.5 | 10 | 50 | 0.03 |
-| Hard | 2.0 | 15 | 40 | 0.04 |
-| Hardcore | 2.5 | 20 | 30 | 0.05 |
-| Nightmare | 3.0 | 25 | 20 | 0.06 |
+| Niveau | Détérioration | Croissance | Récup./tour | Coût énergie | Jours limite | Faim init. | Soif init. | Énergie init. |
+|--------|---------------|------------|-------------|--------------|--------------|------------|------------|---------------|
+| Baby | 0.7 | 5% | 14 | 6 | 7 | 20 | 20 | 50 |
+| Easy | 0.8 | 6% | 12 | 7 | 15 | 22 | 22 | 48 |
+| Normal | 0.9 | 8% | 10 | 8 | 15 | 24 | 24 | 45 |
+| Difficult | 1.0 | 10% | 8 | 10 | 15 | 25 | 25 | 40 |
+| Hardcore | 1.1 | 14% | 7 | 12 | 28 | 25 | 25 | 35 |
+| Nightmare | 1.2 | 18% | 6 | 14 | 31 | 30 | 30 | 30 |
+
+### Légende des colonnes
+
+- **Détérioration** (`daily_mult`) : Quantité de base que les jauges Faim/Soif augmentent et Énergie diminue chaque jour
+- **Croissance** (`growth_rate`) : Pourcentage d'augmentation de la détérioration à chaque jour passé
+- **Récup./tour** (`amount_per_tour`) : Points récupérés lors d'une action réussie (chasse, pêche, eau)
+- **Coût énergie** (`energy_cost`) : Points d'énergie consommés par action
+- **Jours limite** (`days_left`) : Nombre maximum de jours à survivre pour gagner
+- **Faim/Soif/Énergie init.** : Valeurs de départ des jauges
 
 ### Progression
 
 La difficulté augmente automatiquement chaque jour selon la formule :
 ```
-détérioration_jour = détérioration_base × (1 + taux_croissance)^jours
+détérioration_jour = daily_mult × (1 + growth_rate)^jours_écoulés
 ```
+
+**Exemple pour Nightmare :**
+- Jour 1 : 1.2 points de détérioration
+- Jour 5 : 1.2 × (1.18)^4 ≈ **2.34** points
+- Jour 10 : 1.2 × (1.18)^9 ≈ **5.19** points
+- Jour 20 : 1.2 × (1.18)^19 ≈ **28.7** points → Survie quasi impossible !
+
+### Conseils par difficulté
+
+| Niveau | Stratégie recommandée |
+|--------|----------------------|
+| **Baby** | Idéal pour apprendre les mécaniques. Progression très douce. |
+| **Easy** | Bon compromis pour premiers runs sérieux. Marge d'erreur correcte. |
+| **Normal** | Équilibre standard. Nécessite une bonne gestion des ressources. |
+| **Difficult** | Challenge sérieux. Chaque décision compte, pas de place à l'erreur. |
+| **Hardcore** | Pour joueurs expérimentés. 28 jours = marathon d'endurance. |
+| **Nightmare** | Mode extrême. Croissance explosive, 31 jours quasi insurmontables. |
 
 ## 🎲 Actions disponibles
 
@@ -641,7 +667,7 @@ Les contributions sont les bienvenues ! Pour contribuer :
 
 Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
-## 👥 Auteur
+## 👥 Auteurs
 
 - **DantesDels** - *Développeur principal* - [Lien GitHub](https://github.com/dantesdels)
 
