@@ -1,4 +1,3 @@
-import utils
 from main_menu import display_main_menu
 
 def get_player_action():

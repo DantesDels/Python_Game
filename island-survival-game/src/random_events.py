@@ -17,23 +17,26 @@ def apply_effect(player, effect):
         player.energy.decrease(effect["cost"])
 
     elif effect["type"] == "player_choice":
-        print("Choisissez une action :\n 1 - Chasser l'animal (diminue la faim)\n 2 - Fuir (diminue l'énergie)\n")
-        choice = input("Votre choix : ")
-        choice = choice.strip().lower()
-        map = {
-            '1': '1', 'chasser': '1', 'hunt': '1', 'h': '1',
-            '2': '2', 'fuir': '2', 'run': '2', 'r': '2'
-        }
-        choice = map.get(choice, choice)
-        if choice == "1":
-            player.hunger.decrease(30)
-            print("\nVous avez chassé l'animal avec succès !\n - La faim diminue de 30 -")
-        elif choice == "2":
-            player.energy.decrease(20)
-            print("\nVous avez fui l'animal !\n - L'énergie diminue de 20 -")
-        else:
-            print("Choix invalide. Aucune action entreprise.")
+        while True:
+            print("Choisissez une action :\n 1 - Chasser l'animal (diminue la faim)\n 2 - Fuir (diminue l'énergie)\n")
+            choice = input("Votre choix : ")
+            choice = choice.strip().lower()
+            map = {
+                '1': '1', 'chasser': '1', 'hunt': '1', 'h': '1',
+                '2': '2', 'fuir': '2', 'run': '2', 'r': '2'
+            }
+            choice = map.get(choice, choice)
 
+            if choice == "1":
+                player.hunt()
+                print("\nVous avez chassé l'animal avec succès !\n - La faim diminue -")
+                break
+            elif choice == "2":
+                player.energy.decrease(20)
+                print("\nVous avez fui l'animal !\n - L'énergie diminue -")
+                break
+            else:
+                print("Choix invalide. Veuillez réessayer.\n")
     else:
         print("Erreur : Type d'effet inconnu.")
 
