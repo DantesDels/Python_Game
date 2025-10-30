@@ -28,7 +28,7 @@ def display_main_menu(game):
         game.reset_game()
     elif choice == '2':
         print("Reprise de la dernière partie sauvegardée...\n")
-        game.start()
+        to_load(game, latest=True)
     elif choice == '3':
         print("Sauvegarde de la partie en cours...\n")
         to_save(game)

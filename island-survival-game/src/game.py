@@ -14,7 +14,6 @@ class Game:
         self.is_game_over = False
         
     def start(self, from_load=False):
-    #   utils.full_screen()
         utils.clear_screen()
         
         if not from_load:

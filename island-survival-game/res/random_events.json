@@ -5,10 +5,20 @@
       "name": "-",
       "Ascii_art": "", 
       "description": "Rien de particulier ne s'est passé aujourd'hui.",
-      "effect": {
+      "effect": [
+      {
         "type": "energy_decrease", 
         "cost": 10
       },
+      {
+        "type": "thirst_increase", 
+        "cost": 5
+      },
+      {
+        "type": "hunger_increase", 
+        "cost": 5
+      }
+    ],
       "chance": 40
     },
     {

@@ -42,7 +42,7 @@ def to_save(game):
     input()
     return main_menu.display_main_menu(game)
 
-def to_load(game):
+def to_load(game, latest=False):
     utils.ensure_dir('saves')
     save_files = [f for f in os.listdir(SAVES_DIR) if TIMESTAMP_PATTERN.match(f)]
     if not save_files:
@@ -50,13 +50,29 @@ def to_load(game):
         input("\nAppuyez sur une touche pour revenir au menu principal...")
         return main_menu.display_main_menu(game)
 
-    save_files.sort(reverse=True) # latest save comes first
+    save_files.sort(reverse=True)
     
     saves = []
     for save_file in save_files:
         with open(os.path.join(SAVES_DIR, save_file), 'r', encoding='utf-8') as save_game_file:
             save_data = json.load(save_game_file)
             saves.append(save_data)
+
+    if latest == True:
+        selected_save = saves[0]
+        print(f"Sauvegarde chargée : {selected_save['save_name']}\n")
+        player_data = selected_save['player']
+        game.player = player.Player(
+            name=player_data['name'],
+            difficulty=selected_save['game']['difficulty'],
+            hunger=player_data['hunger'],
+            thirst=player_data['thirst'],
+            energy=player_data['energy'],
+            days_survived=player_data['days_survived']
+        )
+        game.selected_difficulty = selected_save['game']['difficulty']
+        game.start(from_load=True)
+        return
 
     print("Liste des sauvegardes disponibles :\n")
     for i, (save_data) in enumerate(saves, start=1):
