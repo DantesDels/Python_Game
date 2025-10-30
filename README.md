@@ -1,6 +1,11 @@
 # Island Survival Game 🏝️
 *Dernière mise à jour : Octobre 2025*
+
+**Pour faire simple :**
 Un jeu de survie en mode texte où vous devez survivre le plus longtemps possible sur une île déserte en gérant votre faim, votre soif et votre énergie.
+
+**Pour faire plus compliqué :**
+Vous incarnez le survivant d'un crash d'avion échoué sur une île déserte. Chaque jour, vous devez choisir des actions pour gérer vos jauges de faim, soif et énergie tout en faisant face à des événements aléatoires, en attendant que les secours arrivent. Le jeu propose 6 niveaux de difficulté, un système de sauvegarde, et une progression dynamique où la difficulté augmente avec les jours. Ces mécanismes sont facilement modifiables via des fichiers JSON.
 
 ## 📋 Table des matières
 
@@ -129,7 +134,7 @@ détérioration_jour = daily_mult × (1 + growth_rate)^jours_écoulés
 - Jour 1 : 1.2 points de détérioration
 - Jour 5 : 1.2 × (1.18)^4 ≈ **2.34** points
 - Jour 10 : 1.2 × (1.18)^9 ≈ **5.19** points
-- Jour 20 : 1.2 × (1.18)^19 ≈ **28.7** points → Survie quasi impossible !
+- Jour 20 : 1.2 × (1.18)^19 ≈ **28.7** points
 
 ### Conseils par difficulté
 
@@ -505,21 +510,7 @@ Survivant — Hunger: 45, Thirst: 30, Energy: 65, Days: 12
 ╚════════════════════════════════════════════════════════════╝
 ```
 
-#### 5. Thèmes de couleurs (avec `colorama`)
-
-**Thèmes disponibles :**
-- [ ] Classique (noir/blanc)
-- [ ] Tropical (vert/bleu)
-- [ ] Crépuscule (orange/violet)
-- [ ] Nuit (bleu foncé)
-- [ ] Désert (jaune/brun)
-
-**Dépendance optionnelle :**
-```bash
-pip install colorama
-```
-
-#### 6. Animations et transitions
+#### 5. Animations et transitions
 
 **Éléments animés :**
 - [ ] Chargement avec barre de progression
@@ -538,7 +529,7 @@ def animate_gauge_change(gauge, old_value, new_value):
         time.sleep(0.05)
 ```
 
-#### 7. Aide contextuelle intégrée
+#### 6. Aide contextuelle intégrée
 
 **Fonctionnalités :**
 - [ ] Touche [?] pour aide contextuelle
@@ -641,6 +632,45 @@ Modifiez `res/random_events.json` :
 - `thirst_increase` / `thirst_decrease`
 - `energy_increase` / `energy_decrease`
 
+### Événements avec plusieurs effets
+Si vous souhaitez qu’un événement ait plusieurs effets, vous pouvez utiliser une liste pour la clé `effect`.
+Dans `res/random_events.json`, la clé `effect` peut être:
+- un objet (un seul effet), ou
+- une liste d’objets (plusieurs effets appliqués à la suite).
+
+Lorsque `effect` est une liste, tous les effets sont appliqués dans l’ordre où ils apparaissent.
+
+Exemple d’événement “multi-effets”:
+```json
+{
+  "id": 0,
+  "name": "-",
+  "Ascii_art": "",
+  "description": "Rien de particulier ne s'est passé aujourd'hui.",
+  "effect": [
+    {
+      "type": "energy_decrease",
+      "cost": 10
+    },
+    {
+      "type": "thirst_increase",
+      "cost": 5
+    },
+    {
+      "type": "hunger_increase",
+      "cost": 5
+    }
+  ],
+  "chance": 40"
+}
+```
+
+Notes:
+- Chaque objet d’effet doit contenir `type` et `cost`.
+- Types supportés: `hunger_increase`, `hunger_decrease`, `thirst_increase`, `thirst_decrease`, `energy_increase`, `energy_decrease`, et `player_choice`.
+- Les coûts sont des entiers positifs; le sens (augmentation/diminution) est donné par `type`.
+- L'effet `player_choice` permet d'offrir des choix au joueur, mais est actuellement hardcodé dans le code source pour des raisons de simplicité.
+
 ### Logs d'erreurs
 
 Les erreurs sont automatiquement enregistrées dans `logs/error_log.txt` avec horodatage.
@@ -665,7 +695,7 @@ Les contributions sont les bienvenues ! Pour contribuer :
 
 ## 📝 Licence
 
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails, présent dans le dossier "docs".
 
 ## 👥 Auteurs
 
@@ -680,16 +710,7 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 ## 📞 Support
 
 Pour toute question ou problème :
-- Ouvrez une [issue](https://github.com/dantesdels/island-survival-game/issues)
-- Consultez les [discussions](https://github.com/dantesdels/island-survival-game/discussions)
-- Contactez-nous par email : sebastien.delver@ynov.com
-
-## 📊 Statistiques du projet
-
-![GitHub stars](https://img.shields.io/github/stars/dantesdels/island-survival-game)
-![GitHub forks](https://img.shields.io/github/forks/dantesdels/island-survival-game)
-![GitHub issues](https://img.shields.io/github/issues/dantesdels/island-survival-game)
-![GitHub license](https://img.shields.io/github/license/dantesdels/island-survival-game)
+- Contactez moi par email : sebastien.delver@ynov.com
 
 ---
 
